@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sign up - HomeFinder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css"></head>
+<body>
+<div id="navbar"></div>
+<div class="form-page"><div class="box">
+  <h1>Create an account</h1>
+  <div class="msg" id="msg"></div>
+  <div class="field"><label>Full name</label><input id="name"></div>
+  <div class="field"><label>NIC number</label><input id="nic"></div>
+  <div class="field"><label>Email</label><input id="email" type="email"></div>
+  <div class="field"><label>Password</label><input id="password" type="password"></div>
+  <button class="btn" id="go" style="width:100%">Sign up</button>
+  <p class="muted center">Already registered? <a href="login.html" style="color:var(--blue-dark);font-weight:700">Log in</a></p>
+</div></div>
+<div id="footer"></div>
+<script src="js/app.js"></script>
+<script>
+  renderNavbar("");
+  const val = id => document.getElementById(id).value;   // read what was typed in a box
+  document.getElementById("go").onclick = async () => {
+    const msg = document.getElementById("msg");
+    msg.className = "msg";
+    const res = await fetch(API + "/api/users/signup", {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ name: val("name"), nic: val("nic"), email: val("email"), password: val("password") })
+    });
+    if (!res.ok) { msg.textContent = await res.text(); msg.className = "msg err"; return; }
+    location.href = "login.html";      // account created -> go and log in
+  };
+</script>
+</body></html>
