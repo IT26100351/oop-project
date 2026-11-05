@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Property details - HomeFinder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css"></head>
+<body>
+<div id="navbar"></div>
+<div class="detail">
+  <div>
+    <div class="photo" id="photo"></div>
+    <div class="box" style="margin-top:24px">
+      <h2 style="margin-top:0">Reviews</h2>
+      <div id="reviews"></div>
+      <div id="reviewForm"></div>
+    </div>
+  </div>
+  <div>
+    <div class="box" id="info">Loading...</div>
+  </div>
+</div>
+<div id="footer"></div>
+
+<script src="js/app.js"></script>
+<script>
+  renderNavbar("");
+  const $ = id => document.getElementById(id);
+  const id = new URLSearchParams(location.search).get("id");
+  const user = getUser();
+  let property = null;
+
+  // ----- Load the property and draw its details -----
+  async function loadProperty() {
+    const res = await fetch(API + endpointFor(typeFromId(id)) + "/" + id);
+    if (!res.ok) { $("info").textContent = "Property not found."; return; }
+    property = await res.json();
+    const p = property;
+
+    if (p.imageName) {
+      $("photo").style.backgroundImage = "url('" + API + "/images/" + encodeURIComponent(p.imageName) + "')";
+    } else {
+      $("photo").textContent = icon(p.type);
+    }
+
+    // extra facts only for house / apartment
+    let facts = `
+      <div class="fact"><span class="muted">Size</span><b>${p.size} ${esc(p.sizeUnit)}</b></div>
+      <div class="fact"><span class="muted">Location</span><b>${esc(p.address.location)}</b></div>`;
+    if (p.rooms !== undefined) facts += `<div class="fact"><span class="muted">Rooms</span><b>${p.rooms}</b></div>`;
+    if (p.floor !== undefined) facts += `<div class="fact"><span class="muted">Floor</span><b>${p.floor}</b></div>`;
+
+    const owner = p.owner;
+    // only the person who created the listing sees Edit / Delete
+    const mine = user && user.id === p.userId;
+    $("info").innerHTML = `
+      <span class="tag">${esc(p.listingType)}</span> <span class="tag">${esc(p.type)}</span>
+      <h1 style="margin:10px 0 4px;font-size:24px">${esc(p.description)}</h1>
+      <div class="price" style="font-size:26px">${money(p.price)}</div>
+      <div class="facts">${facts}</div>
+      <div class="fact"><span class="muted">Address</span><b>${esc(p.address.street)}</b></div>
+      <hr style="border:0;border-top:1px solid var(--line);margin:18px 0">
+      ${owner ? `<p style="margin:0 0 10px"><b>${esc(owner.name)}</b><br><span class="muted">${esc(owner.phone)}</span></p>
+        <a class="btn btn-green" style="width:100%;text-align:center" href="tel:${esc(owner.phone)}">📞 Call to inquire</a>` : ""}
+      ${mine ? `<p style="margin-top:14px">
+        <a class="btn btn-light" href="add-listing.html?edit=${p.id}">Edit</a>
+        <button class="btn btn-red" onclick="deleteProperty()">Delete</button></p>` : ""}`;
+  }
+
+  async function deleteProperty() {
+    if (!confirm("Delete this listing?")) return;
+    await fetch(API + endpointFor(property.type) + "/" + property.id, { method: "DELETE" });
+    location.href = "index.html";
+  }
+
+  // ----- Reviews (everyone can read; only logged-in users can write) -----
+  async function loadReviews() {
+    const list = await fetch(API + "/api/reviews?propertyId=" + id).then(r => r.json());
+    if (list.length === 0) { $("reviews").innerHTML = '<p class="muted">No reviews yet.</p>'; return; }
+    let html = "";
+    for (const r of list) {                                      // loop over every review
+      const stars = "★".repeat(r.rating) + "☆".repeat(5 - r.rating);
+      const mine = user && user.id === r.userId;
+      html += `<div class="review"><b>${esc(r.userName)}</b> <span class="stars">${stars}</span>
+        <div>${esc(r.comment)}</div>
+        ${mine ? `<button class="linkbtn" style="color:var(--red)" onclick="deleteReview('${r.id}')">Delete</button>` : ""}</div>`;
+    }
+    $("reviews").innerHTML = html;
+  }
+
+  function drawReviewForm() {
+    if (!user) {
+      $("reviewForm").innerHTML = '<p class="muted"><a href="login.html" style="color:var(--blue-dark);font-weight:700">Log in</a> to write a review.</p>';
+      return;
+    }
+    $("reviewForm").innerHTML = `
+      <div class="field"><label>Your rating</label>
+        <select id="rating"><option value="5">5 - Excellent</option><option value="4">4 - Good</option>
+        <option value="3">3 - Okay</option><option value="2">2 - Poor</option><option value="1">1 - Bad</option></select></div>
+      <div class="field"><label>Your review</label><textarea id="comment" rows="3"></textarea></div>
+      <button class="btn" onclick="addReview()">Post review</button>`;
+  }
+
+  async function addReview() {
+    const res = await fetch(API + "/api/reviews", {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ propertyId: id, userId: user.id, userName: user.name,
+                             rating: Number($("rating").value), comment: $("comment").value })
+    });
+    if (!res.ok) { alert(await res.text()); return; }
+    drawReviewForm(); loadReviews();
+  }
+
+  async function deleteReview(reviewId) {
+    await fetch(API + "/api/reviews/" + reviewId, { method: "DELETE" });
+    loadReviews();
+  }
+
+  loadProperty(); loadReviews(); drawReviewForm();
+</script>
+</body></html>
