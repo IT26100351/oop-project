@@ -1,0 +1,7 @@
+H001|U001|2000.0|sqft|4.5E7|Sale||Colombo|12 Galle Road, Colombo 03|O001|4
+H002|1|56.0|sqft|1300000.0|Rent|1791774762694_images.jpg,1792471036157_images__1_.jpg,1792478494226_images__2_.jpg,1793515013605_istockphoto-2155136382-612x612.jpg|kadawatha|123 test |O005|4
+H003|U001|1500.0|sqft|2.0E7|Sale||Colombo|10 Main St|O006|3
+H004|1|24.0|sqft|130000.0|Rent|1791775082010_images.jpg|kadawatha|123 test|O009|4
+H005|1|45.0|sqft|130000.0|Rent|1791775318205_images.jpg|kadawatha|123 test|O010|2
+H006|U001|1800.0|sqft|3.0E7|Sale||Negombo|45 Ocean Ave|O011|3
+H007|U003|43543.0|sqft|11.0|Rent||dotw|tem[p|O015|2
