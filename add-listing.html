@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Add listing - HomeFinder</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css"></head>
+<body>
+<div id="navbar"></div>
+<div class="form-page"><div class="box">
+  <h1 id="title">Add a listing</h1>
+  <div class="msg" id="msg"></div>
+
+  <div class="field"><label>What type of property?</label>
+    <select id="type">
+      <option value="house">House</option>
+      <option value="apartment">Apartment</option>
+      <option value="land">Land</option>
+    </select></div>
+
+  <div class="row">
+    <div class="field"><label>Size</label><input id="size" type="number" min="0" step="any"></div>
+    <div class="field"><label>Unit</label>
+      <select id="sizeUnit"><option value="sqft">Square feet</option><option value="perches">Perches</option></select></div>
+  </div>
+
+  <div class="field"><label>Location (town / city)</label><input id="loc"></div>
+  <div class="field"><label>Address</label><input id="street"></div>
+
+  <!-- Only for house and apartment -->
+  <div class="row" id="extra">
+    <div class="field"><label>Number of rooms</label><input id="rooms" type="number" min="0"></div>
+    <div class="field" id="floorBox"><label>Floor number</label><input id="floor" type="number" min="0"></div>
+  </div>
+
+  <div class="row">
+    <div class="field"><label>Price (Rs.)</label><input id="price" type="number" min="0"></div>
+    <div class="field"><label>This property is for</label>
+      <select id="listingType"><option>Rent</option><option>Lease</option><option>Sale</option></select></div>
+  </div>
+
+  <div class="field"><label>Contact phone number (for the Call button)</label><input id="phone" type="tel"></div>
+  
+  <div class="field">
+    <label>Property Photos (Upload Multiple)</label>
+    <div class="multi-upload-container">
+      <div class="multi-upload-dropzone" id="dropzone" onclick="$('image').click()">
+        <input id="image" type="file" accept="image/*" multiple style="display:none">
+        <div class="multi-upload-icon">📷</div>
+        <div class="multi-upload-title">Drop property photos here or <span>browse files</span></div>
+        <div class="multi-upload-hint">Upload multiple high-resolution photos (exterior, interiors, bedrooms, plans). You can reorder and set the primary cover photo.</div>
+      </div>
+      <div class="multi-upload-preview-grid" id="previewGrid"></div>
+    </div>
+  </div>
+
+  <button class="btn" id="go" style="width:100%">Create listing</button>
+</div></div>
+<div id="footer"></div>
+
+<script src="js/app.js"></script>
+<script>
+  renderNavbar("");
+  const $ = id => document.getElementById(id);            // short way to find a box
+  const user = getUser();
+  if (!user) location.href = "login.html";                 // must be logged in
+
+  const editId = new URLSearchParams(location.search).get("edit");   // set when editing
+  let existing = null;                                              // the property being edited
+
+  // Array of photo items: { file?: File, existingName?: string, previewUrl: string }
+  let photoItems = [];
+
+  function renderPreviews() {
+    const grid = $("previewGrid");
+    grid.innerHTML = "";
+    photoItems.forEach((item, idx) => {
+      const card = document.createElement("div");
+      card.className = "upload-card" + (idx === 0 ? " is-primary" : "");
+      card.style.backgroundImage = `url('${item.previewUrl}')`;
+
+      card.innerHTML = `
+        ${idx === 0 ? '<span class="primary-badge-tag">★ Primary Cover</span>' : ''}
+        <div class="upload-card-actions">
+          ${idx > 0 ? `<button type="button" class="upload-action-btn" onclick="setPrimaryPhoto(${idx})" title="Set as primary cover">Make Primary</button>` : '<span></span>'}
+          <button type="button" class="upload-action-remove" onclick="removePhoto(${idx})" title="Remove photo">✕</button>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+  }
+
+  function handleFiles(files) {
+    if (!files || files.length === 0) return;
+    for (const f of files) {
+      if (!f.type.startsWith("image/")) continue;
+      const url = URL.createObjectURL(f);
+      photoItems.push({ file: f, previewUrl: url });
+    }
+    renderPreviews();
+  }
+
+  window.setPrimaryPhoto = function(index) {
+    if (index <= 0 || index >= photoItems.length) return;
+    const item = photoItems.splice(index, 1)[0];
+    photoItems.unshift(item);
+    renderPreviews();
+  };
+
+  window.removePhoto = function(index) {
+    photoItems.splice(index, 1);
+    renderPreviews();
+  };
+
+  // Drag and drop setup
+  const dropzone = $("dropzone");
+  $("image").onchange = e => handleFiles(e.target.files);
+
+  dropzone.ondragover = e => { e.preventDefault(); dropzone.classList.add("dragover"); };
+  dropzone.ondragleave = e => { e.preventDefault(); dropzone.classList.remove("dragover"); };
+  dropzone.ondrop = e => {
+    e.preventDefault();
+    dropzone.classList.remove("dragover");
+    handleFiles(e.dataTransfer.files);
+  };
+
+  // Show or hide the room / floor boxes depending on the chosen type
+  function updateForm() {
+    const t = $("type").value;
+    $("extra").style.display = t === "land" ? "none" : "grid";
+    $("floorBox").style.display = t === "apartment" ? "block" : "none";
+    if (!editId && t === "land") $("sizeUnit").value = "perches";
+  }
+  $("type").onchange = updateForm;
+  updateForm();
+
+  // EDIT MODE: load the property and fill the boxes
+  if (editId) {
+    $("title").textContent = "Edit listing";
+    $("go").textContent = "Save changes";
+    const type = typeFromId(editId);
+    fetch(API + endpointFor(type) + "/" + editId).then(r => r.json()).then(p => {
+      existing = p;
+      $("type").value = p.type; $("type").disabled = true;
+      $("size").value = p.size; $("sizeUnit").value = p.sizeUnit;
+      $("loc").value = p.address.location; $("street").value = p.address.street;
+      $("rooms").value = p.rooms ?? ""; $("floor").value = p.floor ?? "";
+      $("price").value = p.price; $("listingType").value = p.listingType;
+      $("phone").value = p.owner ? p.owner.phone : "";
+      
+      // Load existing images
+      const existingImages = getPropertyImages(p);
+      existingImages.forEach(name => {
+        photoItems.push({
+          existingName: name,
+          previewUrl: API + "/images/" + encodeURIComponent(name)
+        });
+      });
+      renderPreviews();
+      updateForm();
+    });
+  }
+
+  function showError(text) { $("msg").textContent = text; $("msg").className = "msg err"; $("msg").scrollIntoView({ behavior: 'smooth' }); }
+
+  $("go").onclick = async () => {
+    $("msg").className = "msg";
+    $("msg").textContent = "";
+    const type = $("type").value;
+
+    const sizeVal = Number($("size").value);
+    const priceVal = Number($("price").value);
+    const locVal = $("loc").value.trim();
+    const streetVal = $("street").value.trim();
+    const phoneVal = $("phone").value.trim();
+
+    if (!locVal) { showError("Location (town / city) is required"); return; }
+    if (!sizeVal || sizeVal <= 0) { showError("Size must be greater than 0"); return; }
+    if (!priceVal || priceVal <= 0) { showError("Price must be greater than 0"); return; }
+    if (!phoneVal) { showError("A contact phone number is required"); return; }
+
+    // Sanitize phone number (strip spaces, +, dashes, international prefix)
+    let cleanPhone = phoneVal.replace(/[^0-9]/g, "");
+    if (cleanPhone.startsWith("94") && cleanPhone.length > 9) {
+      cleanPhone = cleanPhone.substring(2);
+    }
+    if (cleanPhone.length > 9) {
+      cleanPhone = cleanPhone.slice(-9);
+    }
+    const numericPhone = parseInt(cleanPhone, 10) || 0;
+    if (numericPhone <= 0) {
+      showError("Please enter a valid contact phone number (e.g. 077 123 4567 or +94 70 260 9222)");
+      return;
+    }
+
+    const originalBtnText = $("go").textContent;
+    $("go").disabled = true;
+    $("go").textContent = "Uploading property & photos...";
+
+    try {
+      // 1) Upload newly added photos sequentially or collect existing ones
+      const finalImageNames = [];
+      for (let i = 0; i < photoItems.length; i++) {
+        const item = photoItems[i];
+        if (item.existingName) {
+          finalImageNames.push(item.existingName);
+        } else if (item.file) {
+          $("go").textContent = `Uploading photo ${i + 1} of ${photoItems.length}...`;
+          const form = new FormData();
+          form.append("file", item.file);
+          const up = await fetch(API + "/api/images", { method: "POST", body: form });
+          if (!up.ok) {
+            $("go").disabled = false;
+            $("go").textContent = originalBtnText;
+            showError("Photo upload error: " + (await up.text()));
+            return;
+          }
+          const savedName = (await up.text()).trim();
+          finalImageNames.push(savedName);
+        }
+      }
+
+      const combinedImageName = finalImageNames.join(",");
+
+      // 2) Collect everything typed into one object
+      const data = {
+        size: sizeVal,
+        sizeUnit: $("sizeUnit").value,
+        price: priceVal,
+        listingType: $("listingType").value,
+        imageName: combinedImageName,
+        images: finalImageNames,
+        userId: user.id,
+        address: { location: locVal, street: streetVal },
+        owner: { name: user.name, phone: numericPhone, userId: user.id }
+      };
+      if (type !== "land") data.rooms = Number($("rooms").value || 0);
+      if (type === "apartment") data.floor = Number($("floor").value || 0);
+
+      // 3) Send it: POST = create, PUT = update
+      const url = API + endpointFor(type) + (editId ? "/" + editId : "");
+      const res = await fetch(url, {
+        method: editId ? "PUT" : "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+      });
+      if (!res.ok) {
+        $("go").disabled = false;
+        $("go").textContent = originalBtnText;
+        showError(await res.text());
+        return;
+      }
+      const saved = await res.json();
+
+      // When editing, also update the owner's phone number
+      if (editId && existing && existing.owner) {
+        await fetch(API + "/api/owners/" + existing.owner.id, {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ name: user.name, phone: numericPhone, userId: user.id })
+        });
+      }
+      location.href = "success.html?id=" + saved.id + (editId ? "&edited=1" : "");
+    } catch (err) {
+      $("go").disabled = false;
+      $("go").textContent = originalBtnText;
+      showError("Error connecting to server: " + err.message);
+    }
+  };
+</script>
+</body></html>
