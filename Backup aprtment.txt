@@ -1,0 +1,2 @@
+A001|U002|1100.0|sqft|120000.0|Rent||Kandy|45 Peradeniya Road, Kandy|O002|3|5
+A002|U001|950.0|sqft|1.8E7|Sale||Dehiwala|Station Rd||2|3
