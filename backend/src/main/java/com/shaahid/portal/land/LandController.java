@@ -6,10 +6,10 @@ import org.springframework.web.bind.annotation.*;
 
 // URLs for the land part:
 //   GET    /api/lands        -> all lands
-//   GET    /api/lands/H001   -> one land
+//   GET    /api/lands/L001   -> one land
 //   POST   /api/lands        -> create a land
-//   PUT    /api/lands/H001   -> update
-//   DELETE /api/lands/H001   -> delete
+//   PUT    /api/lands/L001   -> update
+//   DELETE /api/lands/L001   -> delete
 @RestController
 @RequestMapping("/api/lands")
 public class LandController {

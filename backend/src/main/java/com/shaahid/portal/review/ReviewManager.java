@@ -11,7 +11,15 @@ public class ReviewManager {
 
     private Review lineToReview(String line) {
         String[] parts = line.split("\\|", -1);
-        return new Review(parts[0], parts[1], parts[2], parts[3], Integer.parseInt(parts[4]), parts[5]);
+        int rating = 5;
+        try {
+            if (parts.length > 4 && !parts[4].isBlank()) {
+                rating = Integer.parseInt(parts[4].trim());
+            }
+        } catch (NumberFormatException e) {
+            // default 5
+        }
+        return new Review(parts[0], parts[1], parts[2], parts[3], rating, parts.length > 5 ? parts[5] : "");
     }
 
     private void saveAll(List<Review> reviews) {

@@ -6,10 +6,10 @@ import org.springframework.web.bind.annotation.*;
 
 // URLs for the apartment part:
 //   GET    /api/apartments        -> all apartments
-//   GET    /api/apartments/H001   -> one apartment
+//   GET    /api/apartments/A001   -> one apartment
 //   POST   /api/apartments        -> create an apartment
-//   PUT    /api/apartments/H001   -> update
-//   DELETE /api/apartments/H001   -> delete
+//   PUT    /api/apartments/A001   -> update
+//   DELETE /api/apartments/A001   -> delete
 @RestController
 @RequestMapping("/api/apartments")
 public class ApartmentController {

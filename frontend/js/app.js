@@ -1,4 +1,4 @@
-// ===== HomeQuest - Shared JavaScript (app.js) =====
+﻿// ===== HomeQuest - Shared JavaScript (app.js) =====
 
 // Single unified backend API URL:
 // When served by the backend on http://localhost:8080, use same-origin relative path ("")
@@ -136,16 +136,16 @@ function renderFooter() {
               <input type="email" id="nlEmail" placeholder="Enter your email address">
               <button class="btn" style="padding:10px 18px" onclick="subscribeNewsletter()">Join</button>
             </div>
-            <div id="nlMsg" style="font-size:12px;color:var(--gold-light);margin-top:8px;display:none">✓ You are subscribed to HomeQuest private releases.</div>
+            <div id="nlMsg" style="font-size:12px;color:var(--gold-light);margin-top:8px;display:none">âœ“ You are subscribed to HomeQuest private releases.</div>
           </div>
         </div>
 
         <div class="footer-bottom">
           <div>
-            © 2026 <b>HomeQuest Real Estate Company</b> · SE1020 Group WD04 · All Rights Reserved.
+            Â© 2026 <b>HomeQuest Real Estate Company</b> Â· SE1020 Group WD04 Â· All Rights Reserved.
           </div>
           <div>
-            100% Verified Ownership · Clear Legal Deeds · Architectural Quality Standard
+            100% Verified Ownership Â· Clear Legal Deeds Â· Architectural Quality Standard
           </div>
         </div>
       </div>
@@ -177,7 +177,7 @@ function money(n) {
 }
 
 function icon(type) {
-  return type === "house" ? "🏠" : type === "apartment" ? "🏢" : "🌴";
+  return type === "house" ? "ðŸ " : type === "apartment" ? "ðŸ¢" : "ðŸŒ´";
 }
 
 // Which backend URL belongs to which type
@@ -264,17 +264,17 @@ function cardHTML(p) {
   // Specs pills
   let specsHtml = "";
   if (p.size) {
-    specsHtml += `<span class="spec-pill">📐 ${p.size} ${esc(p.sizeUnit || 'sqft')}</span>`;
+    specsHtml += `<span class="spec-pill">ðŸ“ ${p.size} ${esc(p.sizeUnit || 'sqft')}</span>`;
   }
   if (p.rooms !== undefined && p.rooms > 0) {
-    specsHtml += `<span class="spec-pill">🛏️ ${p.rooms} Rooms</span>`;
+    specsHtml += `<span class="spec-pill">ðŸ›ï¸ ${p.rooms} Rooms</span>`;
   }
   if (p.floor !== undefined && p.floor > 0) {
-    specsHtml += `<span class="spec-pill">🏢 Floor ${p.floor}</span>`;
+    specsHtml += `<span class="spec-pill">ðŸ¢ Floor ${p.floor}</span>`;
   }
 
   const multiBadge = images.length > 1
-    ? `<span class="photo-count-badge">📷 ${images.length} Photos</span>`
+    ? `<span class="photo-count-badge">ðŸ“· ${images.length} Photos</span>`
     : "";
 
   return `
@@ -293,14 +293,14 @@ function cardHTML(p) {
       <div class="price">${money(p.price)}</div>
       <h3>${esc(p.description)}</h3>
       <div class="card-location">
-        <span>📍</span> ${esc(p.address?.location || "Sri Lanka")} · <span style="font-size:12px;color:var(--text-muted)">${esc(p.address?.street || "")}</span>
+        <span>ðŸ“</span> ${esc(p.address?.location || "Sri Lanka")} Â· <span style="font-size:12px;color:var(--text-muted)">${esc(p.address?.street || "")}</span>
       </div>
       <div class="card-specs">
         ${specsHtml}
       </div>
       <div class="card-footer-cta">
         <span>Explore Property</span>
-        <span class="cta-arrow">→</span>
+        <span class="cta-arrow">â†’</span>
       </div>
     </div>
   </a>`;
@@ -400,9 +400,9 @@ function runMotionVFX6247Transition(containerEl, oldUrl, newUrl, direction = 'ne
 const AGENCY_SHOWCASE_VIDEO_URL = "https://www.youtube.com/embed/LXb3EKWsInQ?autoplay=1&rel=0&modestbranding=1&showinfo=0";
 
 const AGENCY_CHAPTERS = [
-  { title: "🏡 Coastal Waterfront Villas", start: 0, time: "0:00" },
-  { title: "🏢 The Azure Sky Penthouse", start: 75, time: "1:15" },
-  { title: "🌴 Ceylon Sanctuary Estates", start: 160, time: "2:40" }
+  { title: "ðŸ¡ Coastal Waterfront Villas", start: 0, time: "0:00" },
+  { title: "ðŸ¢ The Azure Sky Penthouse", start: 75, time: "1:15" },
+  { title: "ðŸŒ´ Ceylon Sanctuary Estates", start: 160, time: "2:40" }
 ];
 
 function ensureAgencyVideoModal() {
@@ -428,10 +428,10 @@ function ensureAgencyVideoModal() {
         <div class="agency-modal-brand">
           <div class="agency-logo-symbol-wrap" style="width:36px;height:20px">${LOGO_SVG}</div>
           <div class="agency-modal-title">
-            HomeQuest <b>Agency Reel</b> <span>· 4K CINEMATIC TOUR</span>
+            HomeQuest <b>Agency Reel</b> <span>Â· 4K CINEMATIC TOUR</span>
           </div>
         </div>
-        <button class="agency-modal-close-btn" onclick="closeAgencyVideoModal()" title="Close video modal (Esc)">✕</button>
+        <button class="agency-modal-close-btn" onclick="closeAgencyVideoModal()" title="Close video modal (Esc)">âœ•</button>
       </div>
 
       <div class="agency-modal-video-frame" id="agencyModalVideoContainer">
@@ -447,11 +447,11 @@ function ensureAgencyVideoModal() {
 
       <div class="agency-modal-footer">
         <div style="font-size:12px;color:var(--text-muted)">
-          ✦ Certified Architectural Portfolios across Colombo, Kandy &amp; Southern Coastline.
+          âœ¦ Certified Architectural Portfolios across Colombo, Kandy &amp; Southern Coastline.
         </div>
         <div style="display:flex;gap:10px">
           <button class="btn btn-glass" style="padding:8px 16px;font-size:13px" onclick="closeAgencyVideoModal();createListing()">+ Post Listing</button>
-          <a class="btn" style="padding:8px 18px;font-size:13px" href="tel:+94112699822">📞 Concierge Hotline</a>
+          <a class="btn" style="padding:8px 18px;font-size:13px" href="tel:+94112699822">ðŸ“ž Concierge Hotline</a>
         </div>
       </div>
     </div>
@@ -506,3 +506,4 @@ function switchAgencyChapter(startTime, btn) {
   document.querySelectorAll(".chapter-btn").forEach(b => b.classList.remove("active"));
   if (btn) btn.classList.add("active");
 }
+

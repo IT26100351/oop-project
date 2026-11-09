@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -8,16 +8,16 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css?v=3">
+  <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
 <!-- Navigation Bar -->
 <div id="navbar"></div>
 
-<!-- HOMEQUEST CINEMATIC HERO — FULL-SCREEN VIDEO WITH GLASSMORPHIC HEADING -->
+<!-- HOMEQUEST CINEMATIC HERO â€” FULL-SCREEN VIDEO WITH GLASSMORPHIC HEADING -->
 <section class="agency-video-banner">
-  <!-- Cinematic Real Estate Video Background (trimmed 00:25–00:40) -->
+  <!-- Cinematic Real Estate Video Background (trimmed 00:25â€“00:40) -->
   <div class="agency-banner-video-wrap">
     <video autoplay muted loop playsinline id="heroVideo">
       <source src="videos/hero-clip.mp4" type="video/mp4">
@@ -25,7 +25,7 @@
   </div>
   <div class="agency-banner-overlay"></div>
 
-  <!-- Content Layer — Pure Floating Typography directly over video -->
+  <!-- Content Layer â€” Pure Floating Typography directly over video -->
   <div class="agency-banner-inner hero-heading-only">
     <h1 class="hero-bold-title" id="heroTitle">
       <span class="hero-text-muted">FIND YOUR</span><br>
@@ -51,9 +51,9 @@
       <label for="fType">Portfolio Category</label>
       <select id="fType">
         <option value="">All Categories</option>
-        <option value="house">🏡 Luxury House</option>
-        <option value="apartment">🏢 Modern Apartment</option>
-        <option value="land">🌴 Prime Land Plot</option>
+        <option value="house">ðŸ¡ Luxury House</option>
+        <option value="apartment">ðŸ¢ Modern Apartment</option>
+        <option value="land">ðŸŒ´ Prime Land Plot</option>
       </select>
     </div>
 
@@ -73,17 +73,17 @@
     </div>
 
     <button class="btn" id="searchBtn" style="height:48px">
-      <span>🔍 Search Properties</span>
+      <span>ðŸ” Search Properties</span>
     </button>
 
     <!-- Category Quick-Filter Bar -->
     <div class="category-pills-bar">
       <span class="pill-label">Filter Category:</span>
-      <button type="button" class="cat-pill active" onclick="setQuickType('')">❖ All</button>
-      <button type="button" class="cat-pill" onclick="setQuickType('land')">🌴 Prime Lands</button>
-      <button type="button" class="cat-pill" onclick="setQuickType('house')">🏡 Luxury Houses</button>
-      <button type="button" class="cat-pill" onclick="setQuickType('apartment')">🏢 City Apartments</button>
-      <button type="button" class="cat-pill" style="margin-left:auto;color:var(--gold-light);border-color:var(--gold)" onclick="resetFilters()">↺ Reset Filters</button>
+      <button type="button" class="cat-pill active" onclick="setQuickType('')">â– All</button>
+      <button type="button" class="cat-pill" onclick="setQuickType('land')">ðŸŒ´ Prime Lands</button>
+      <button type="button" class="cat-pill" onclick="setQuickType('house')">ðŸ¡ Luxury Houses</button>
+      <button type="button" class="cat-pill" onclick="setQuickType('apartment')">ðŸ¢ City Apartments</button>
+      <button type="button" class="cat-pill" style="margin-left:auto;color:var(--gold-light);border-color:var(--gold)" onclick="resetFilters()">â†º Reset Filters</button>
     </div>
   </div>
 </div>
@@ -145,7 +145,7 @@
     <div>
       <div class="new-badge">Live Listings</div>
       <h2>New Arrivals</h2>
-      <p>The freshest listings added to HomeQuest — updated in real time from verified owners.</p>
+      <p>The freshest listings added to HomeQuest â€” updated in real time from verified owners.</p>
     </div>
     <div class="arrivals-nav">
       <button class="arrivals-arrow" id="arrivalsLeft" onclick="scrollArrivals(-1)" title="Scroll left">&#8592;</button>
@@ -197,7 +197,7 @@
 
   <div class="grid" id="list"></div>
   <div class="empty" id="empty" style="display:none">
-    <div style="font-size:42px;margin-bottom:12px">🔍</div>
+    <div style="font-size:42px;margin-bottom:12px">ðŸ”</div>
     <h3>No properties match your current search criteria.</h3>
     <p>Try clearing your keyword, adjusting the price ceiling, or switching to "All Categories".</p>
     <button class="btn" style="margin-top:14px" onclick="resetFilters()">View All Properties</button>
@@ -206,7 +206,7 @@
     <button class="btn-show-more" id="showMoreBtn" onclick="showMoreProperties()">
       <span>Explore More Properties</span>
       <span class="show-more-count" id="showMoreRemaining"></span>
-      <span class="arrow-down">↓</span>
+      <span class="arrow-down">â†“</span>
     </button>
   </div>
 </section>
@@ -225,7 +225,7 @@
     <!-- SVG LINE CHART -->
     <div class="chart-panel">
       <div class="chart-panel-title">Average Property Price Trend</div>
-      <div class="chart-panel-sub">Monthly average asking prices (Rs. millions) · Jan–Dec 2025</div>
+      <div class="chart-panel-sub">Monthly average asking prices (Rs. millions) Â· Janâ€“Dec 2025</div>
       <div class="chart-legend">
         <div class="legend-item"><div class="legend-dot" style="background:#d4af37"></div>Luxury Houses</div>
         <div class="legend-item"><div class="legend-dot" style="background:#5dce8e"></div>City Apartments</div>
@@ -304,22 +304,22 @@
       <div class="market-summary-card house-card reveal">
         <div class="msc-label">Avg. House Price</div>
         <div class="msc-value">Rs. 52M</div>
-        <div class="msc-change up">▲ 18.4% vs last year</div>
-        <div class="msc-range">Range: Rs. 18M – Rs. 185M</div>
+        <div class="msc-change up">â–² 18.4% vs last year</div>
+        <div class="msc-range">Range: Rs. 18M â€“ Rs. 185M</div>
         <div class="msc-bar-wrap"><div class="msc-bar-fill" style="--bar-pct:72%"></div></div>
       </div>
       <div class="market-summary-card apt-card reveal reveal-delay-1">
         <div class="msc-label">Avg. Apartment Price</div>
         <div class="msc-value">Rs. 28M</div>
-        <div class="msc-change up">▲ 12.1% vs last year</div>
-        <div class="msc-range">Range: Rs. 8M – Rs. 95M</div>
+        <div class="msc-change up">â–² 12.1% vs last year</div>
+        <div class="msc-range">Range: Rs. 8M â€“ Rs. 95M</div>
         <div class="msc-bar-wrap"><div class="msc-bar-fill" style="--bar-pct:55%"></div></div>
       </div>
       <div class="market-summary-card land-card reveal reveal-delay-2">
         <div class="msc-label">Avg. Land Price / Perch</div>
         <div class="msc-value">Rs. 4.2M</div>
-        <div class="msc-change up">▲ 9.7% vs last year</div>
-        <div class="msc-range">Colombo suburbs · per perch</div>
+        <div class="msc-change up">â–² 9.7% vs last year</div>
+        <div class="msc-range">Colombo suburbs Â· per perch</div>
         <div class="msc-bar-wrap"><div class="msc-bar-fill" style="--bar-pct:38%"></div></div>
       </div>
     </div>
@@ -354,11 +354,11 @@
     <div class="field">
       <label>Your Rating</label>
       <div class="star-rating-select" id="starSelector">
-        <span class="star selected" data-value="1">★</span>
-        <span class="star selected" data-value="2">★</span>
-        <span class="star selected" data-value="3">★</span>
-        <span class="star selected" data-value="4">★</span>
-        <span class="star selected" data-value="5">★</span>
+        <span class="star selected" data-value="1">â˜…</span>
+        <span class="star selected" data-value="2">â˜…</span>
+        <span class="star selected" data-value="3">â˜…</span>
+        <span class="star selected" data-value="4">â˜…</span>
+        <span class="star selected" data-value="5">â˜…</span>
       </div>
       <input type="hidden" id="revRating" value="5">
     </div>
@@ -588,21 +588,21 @@
         userName: "Dr. Asela Jayawardena",
         rating: 5,
         comment: "Secured a 15-perch land in Kadawatha with clean title deeds. The legal team handled documentation seamlessly. HomeQuest set a new benchmark for trust.",
-        tag: "Land Buyer · Kadawatha",
+        tag: "Land Buyer Â· Kadawatha",
         verified: true
       },
       {
         userName: "Kavinda & Dilani Perera",
         rating: 5,
         comment: "Moving into our 4-room house in Colombo 03 was our lifelong dream. The architectural layout, modern glass fixtures, and neighborhood security exceeded all expectations.",
-        tag: "Homeowners · Colombo 03",
+        tag: "Homeowners Â· Colombo 03",
         verified: true
       },
       {
         userName: "Nimali Silva",
         rating: 5,
         comment: "Renting our luxury apartment in Kandy was effortless through HomeQuest. Highly transparent communication with the owner and verified facilities.",
-        tag: "Tenant · Kandy Residencies",
+        tag: "Tenant Â· Kandy Residencies",
         verified: true
       }
     ];
@@ -629,13 +629,13 @@
 
     grid.innerHTML = curated.slice(0, 6).map(item => `
       <div class="review-card">
-        <div class="review-rating">${"★".repeat(item.rating)}${"☆".repeat(5 - item.rating)}</div>
+        <div class="review-rating">${"â˜…".repeat(item.rating)}${"â˜†".repeat(5 - item.rating)}</div>
         <p class="review-comment">"${esc(item.comment)}"</p>
         <div class="review-author-wrap">
           <div class="review-avatar">${esc(item.userName.charAt(0).toUpperCase())}</div>
           <div class="review-meta">
             <h4>${esc(item.userName)}</h4>
-            <span>${esc(item.tag)} · <b style="color:var(--gold)">✓ Verified</b></span>
+            <span>${esc(item.tag)} Â· <b style="color:var(--gold)">âœ“ Verified</b></span>
           </div>
         </div>
       </div>
@@ -821,7 +821,7 @@
     if (!list || !list.length) {
       scroll.innerHTML = `
         <div style="display:flex;align-items:center;justify-content:center;gap:14px;padding:36px 20px;width:100%;color:var(--text-muted);font-size:14px;background:rgba(255,255,255,0.02);border:1px dashed rgba(212,175,55,0.25);border-radius:12px;text-align:center">
-          <span>✨ No listings published yet.</span>
+          <span>âœ¨ No listings published yet.</span>
           <button class="btn" style="padding:6px 16px;font-size:12px" onclick="createListing()">Add First Listing</button>
         </div>`;
       return;
@@ -851,13 +851,13 @@
       }
 
       const multiBadge = images.length > 1
-        ? `<span class="photo-count-badge">📷 ${images.length} Photos</span>`
+        ? `<span class="photo-count-badge">ðŸ“· ${images.length} Photos</span>`
         : '';
       const specs = [
         p.size ? `${p.size} ${p.sizeUnit || 'sqft'}` : '',
         p.rooms ? `${p.rooms} Beds` : '',
         p.floor ? `Fl. ${p.floor}` : ''
-      ].filter(Boolean).join(' · ');
+      ].filter(Boolean).join(' Â· ');
 
       return `
         <a class="arrival-card scroll-in-card" href="details.html?id=${p.id}" onclick="recordPropertyOpen('${p.id}')">
@@ -874,7 +874,7 @@
           <div class="arrival-card-body">
             <div class="arrival-price">${money(p.price)}</div>
             <div class="arrival-desc">${esc(p.description)}</div>
-            <div class="arrival-location">📍 ${esc(p.address?.location || 'Sri Lanka')}${specs ? ` · <span style="color:var(--gold-light);font-size:12px;font-weight:600">${esc(specs)}</span>` : ''}</div>
+            <div class="arrival-location">ðŸ“ ${esc(p.address?.location || 'Sri Lanka')}${specs ? ` Â· <span style="color:var(--gold-light);font-size:12px;font-weight:600">${esc(specs)}</span>` : ''}</div>
           </div>
         </a>`;
     }).join('');
@@ -900,7 +900,7 @@
     if (!list || !list.length) {
       scroll.innerHTML = `
         <div style="display:flex;align-items:center;justify-content:center;gap:14px;padding:36px 20px;width:100%;color:var(--text-muted);font-size:14px;background:rgba(255,255,255,0.02);border:1px dashed rgba(212,175,55,0.25);border-radius:12px;text-align:center">
-          <span>🔥 High-demand properties will appear here as client inquiries increase.</span>
+          <span>ðŸ”¥ High-demand properties will appear here as client inquiries increase.</span>
         </div>`;
       return;
     }
@@ -933,13 +933,13 @@
 
       const views = getViewsCount(p.id);
       const multiBadge = images.length > 1
-        ? `<span class="photo-count-badge">📷 ${images.length} Photos</span>`
+        ? `<span class="photo-count-badge">ðŸ“· ${images.length} Photos</span>`
         : '';
       const specs = [
         p.size ? `${p.size} ${p.sizeUnit || 'sqft'}` : '',
         p.rooms ? `${p.rooms} Beds` : '',
         p.floor ? `Fl. ${p.floor}` : ''
-      ].filter(Boolean).join(' · ');
+      ].filter(Boolean).join(' Â· ');
 
       return `
         <a class="trending-card scroll-in-card" href="details.html?id=${p.id}" onclick="recordPropertyOpen('${p.id}')">
@@ -949,14 +949,14 @@
                  class="card-preview-image"
                  style="width:100%;height:210px;min-height:210px;max-height:210px;object-fit:cover;display:block;border-radius:18px 18px 0 0;"
                  onerror="this.onerror=null;this.src='${fallbackPhoto}';">
-            <span class="trending-tag">🔥 ${views} Views</span>
+            <span class="trending-tag">ðŸ”¥ ${views} Views</span>
             <span class="arrival-type-tag">${typeLabel}</span>
             ${multiBadge}
           </div>
           <div class="arrival-card-body">
             <div class="arrival-price">${money(p.price)}</div>
             <div class="arrival-desc">${esc(p.description)}</div>
-            <div class="arrival-location">📍 ${esc(p.address?.location || 'Sri Lanka')}${specs ? ` · <span style="color:var(--gold-light);font-size:12px;font-weight:600">${esc(specs)}</span>` : ''}</div>
+            <div class="arrival-location">ðŸ“ ${esc(p.address?.location || 'Sri Lanka')}${specs ? ` Â· <span style="color:var(--gold-light);font-size:12px;font-weight:600">${esc(specs)}</span>` : ''}</div>
           </div>
         </a>`;
     }).join('');
@@ -981,4 +981,6 @@
 </script>
 </body>
 </html>
+
+
 

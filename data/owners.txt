@@ -1,0 +1,8 @@
+﻿O001|Kamal Perera|771234567|U001
+O002|Nimali Silva|719876543|U002
+O011|Dineth Samarakoon|701234567|U003
+O012|Dineth Samarakoon|701234567|U003
+O013|Dineth Samarakoon|703657383|U003
+O015|Dineth Samarakoon|701234567|U003
+O016|Dineth Samarakoon|702609222|U003
+O017|Dineth Samarakoon|701234567|U003

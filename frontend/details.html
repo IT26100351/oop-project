@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Property details - HomeFinder</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -61,7 +61,7 @@
       <div class="fact"><span class="muted">Address</span><b>${esc(p.address.street)}</b></div>
       <hr style="border:0;border-top:1px solid var(--line);margin:18px 0">
       ${owner ? `<p style="margin:0 0 10px"><b>${esc(owner.name)}</b><br><span class="muted">${esc(owner.phone)}</span></p>
-        <a class="btn btn-green" style="width:100%;text-align:center" href="tel:${esc(owner.phone)}">📞 Call to inquire</a>` : ""}
+        <a class="btn btn-green" style="width:100%;text-align:center" href="tel:${esc(owner.phone)}">ðŸ“ž Call to inquire</a>` : ""}
       ${mine ? `<p style="margin-top:14px">
         <a class="btn btn-light" href="add-listing.html?edit=${p.id}">Edit</a>
         <button class="btn btn-red" onclick="deleteProperty()">Delete</button></p>` : ""}`;
@@ -79,7 +79,7 @@
     if (list.length === 0) { $("reviews").innerHTML = '<p class="muted">No reviews yet.</p>'; return; }
     let html = "";
     for (const r of list) {                                      // loop over every review
-      const stars = "★".repeat(r.rating) + "☆".repeat(5 - r.rating);
+      const stars = "â˜…".repeat(r.rating) + "â˜†".repeat(5 - r.rating);
       const mine = user && user.id === r.userId;
       html += `<div class="review"><b>${esc(r.userName)}</b> <span class="stars">${stars}</span>
         <div>${esc(r.comment)}</div>
@@ -119,3 +119,4 @@
   loadProperty(); loadReviews(); drawReviewForm();
 </script>
 </body></html>
+

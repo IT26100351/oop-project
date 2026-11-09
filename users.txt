@@ -1,3 +1,0 @@
-U001|Shaahid|200012345678|shaahid@example.com|pass123
-U002|Nimali Silva|199845678912|nimali@example.com|pass123
-U003|Dineth Samarakoon|123456789v|clockworkalt2005@gmail.com|123456789

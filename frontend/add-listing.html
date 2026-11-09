@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Add listing - HomeFinder</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -46,7 +46,7 @@
     <div class="multi-upload-container">
       <div class="multi-upload-dropzone" id="dropzone" onclick="$('image').click()">
         <input id="image" type="file" accept="image/*" multiple style="display:none">
-        <div class="multi-upload-icon">📷</div>
+        <div class="multi-upload-icon">ðŸ“·</div>
         <div class="multi-upload-title">Drop property photos here or <span>browse files</span></div>
         <div class="multi-upload-hint">Upload multiple high-resolution photos (exterior, interiors, bedrooms, plans). You can reorder and set the primary cover photo.</div>
       </div>
@@ -80,10 +80,10 @@
       card.style.backgroundImage = `url('${item.previewUrl}')`;
 
       card.innerHTML = `
-        ${idx === 0 ? '<span class="primary-badge-tag">★ Primary Cover</span>' : ''}
+        ${idx === 0 ? '<span class="primary-badge-tag">â˜… Primary Cover</span>' : ''}
         <div class="upload-card-actions">
           ${idx > 0 ? `<button type="button" class="upload-action-btn" onclick="setPrimaryPhoto(${idx})" title="Set as primary cover">Make Primary</button>` : '<span></span>'}
-          <button type="button" class="upload-action-remove" onclick="removePhoto(${idx})" title="Remove photo">✕</button>
+          <button type="button" class="upload-action-remove" onclick="removePhoto(${idx})" title="Remove photo">âœ•</button>
         </div>
       `;
       grid.appendChild(card);
@@ -269,3 +269,4 @@
   };
 </script>
 </body></html>
+

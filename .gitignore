@@ -1,0 +1,21 @@
+# ===== Build outputs =====
+backend/target/
+
+# ===== Java / IntelliJ =====
+*.iml
+.idea/
+*.class
+
+# ===== Maven =====
+backend/.mvn/
+
+# ===== Node.js (optional dev server) =====
+node_modules/
+
+# ===== OS files =====
+.DS_Store
+Thumbs.db
+
+# ===== Data files are tracked (sample data for the viva)
+# If you don't want to track them, uncomment:
+# data/images/

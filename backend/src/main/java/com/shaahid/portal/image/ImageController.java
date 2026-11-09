@@ -21,6 +21,9 @@ public class ImageController {
         if (!folder.exists() && new File("backend/" + FOLDER).exists()) {
             return new File("backend/" + FOLDER);
         }
+        if (!folder.exists() && new File("../" + FOLDER).exists()) {
+            return new File("../" + FOLDER);
+        }
         return folder;
     }
 
