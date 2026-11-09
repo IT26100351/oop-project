@@ -9,11 +9,30 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-// A helper used by EVERY manager. It does the boring file work in one place:
-// reading all lines, writing all lines, and making the next id (H001, H002 ...).
+/**
+ * ============================================================================
+ * UTILITY & DATA PERSISTENCE HELPER
+ * Group: SE1020 Group WD04
+ * Component: Shared FileHelper
+ * ============================================================================
+ * 
+ * Provides centralized flat-file persistence logic used by all Managers:
+ * 1. Multi-path path resolution (resolves whether run from root or backend directory)
+ * 2. Safe file reading and writing with auto-directory creation
+ * 3. Auto-increment ID generation (e.g., H001 -> H002, U001 -> U002)
+ * 4. Input sanitization to prevent delimiter injection (|) in .txt files
+ */
 public class FileHelper {
 
-    // Resolve file path so it works whether run from root or backend directory
+    /**
+     * Resolves the target file path across different execution contexts:
+     * - From root directory (e.g., "data/houses.txt")
+     * - From backend directory (e.g., "backend/data/houses.txt")
+     * - From sub-directories (e.g., "../data/houses.txt")
+     *
+     * @param path Relative path to the file.
+     * @return Resolved File object pointing to the existing or expected path.
+     */
     public static File resolveFile(String path) {
         File file = new File(path);
         if (file.exists()) {
@@ -30,7 +49,13 @@ public class FileHelper {
         return file;
     }
 
-    // Read every line of a text file into a list. If the file does not exist yet, return an empty list.
+    /**
+     * Reads all non-empty lines from the given text file.
+     * Returns an empty list if the file does not exist yet.
+     *
+     * @param path File path.
+     * @return List of strings representing lines in the file.
+     */
     public static List<String> readLines(String path) {
         List<String> lines = new ArrayList<>();
         File file = resolveFile(path);
@@ -39,55 +64,75 @@ public class FileHelper {
         }
         try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
             String line;
-            while ((line = reader.readLine()) != null) {   // loop until the file ends
-                if (!line.trim().isEmpty()) {              // skip empty lines
+            while ((line = reader.readLine()) != null) {
+                if (!line.trim().isEmpty()) {
                     lines.add(line);
                 }
             }
         } catch (IOException e) {
-            System.out.println("Could not read " + path + " : " + e.getMessage());
+            System.err.println("Error reading " + path + ": " + e.getMessage());
         }
         return lines;
     }
 
-    // Replace the whole file with the given lines.
+    /**
+     * Overwrites the specified file with the provided lines.
+     * Automatically creates parent directories if they do not exist.
+     *
+     * @param path Destination file path.
+     * @param lines Lines of text to write.
+     */
     public static void writeLines(String path, List<String> lines) {
         File file = resolveFile(path);
         if (file.getParentFile() != null) {
-            file.getParentFile().mkdirs();                 // create the data folder if missing
+            file.getParentFile().mkdirs();
         }
         try (PrintWriter writer = new PrintWriter(new FileWriter(file))) {
             for (String line : lines) {
                 writer.println(line);
             }
         } catch (IOException e) {
-            System.out.println("Could not write " + path + " : " + e.getMessage());
+            System.err.println("Error writing " + path + ": " + e.getMessage());
         }
     }
 
-    // Make the next id. Example: prefix "H" and lines starting H001|.. H002|.. gives "H003".
+    /**
+     * Automatically generates the next formatted ID in sequence.
+     * Example: given prefix "H" and lines ["H001|...", "H002|..."], returns "H003".
+     *
+     * @param prefix Identifier prefix (e.g., "H", "A", "L", "U", "O", "R").
+     * @param lines Existing data lines containing IDs as the first token.
+     * @return Formatted next ID string (e.g., "H003").
+     */
     public static String nextId(String prefix, List<String> lines) {
         int highest = 0;
         for (String line : lines) {
-            String id = line.split("\\|")[0];              // the id is the first part of the line
+            String id = line.split("\\|")[0];
             try {
                 int number = Integer.parseInt(id.substring(prefix.length()));
                 if (number > highest) {
                     highest = number;
                 }
-            } catch (NumberFormatException e) {
-                // ignore lines with a strange id
+            } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
+                // Ignore improperly formatted IDs
             }
         }
         return prefix + String.format("%03d", highest + 1);
     }
 
-    // Our files use "|" to separate fields, so a "|" typed by a user would break the line.
-    // This swaps "|" and new lines for safe characters before saving.
+    /**
+     * Sanitizes input text to prevent pipe (|) and newline injection into flat-file records.
+     *
+     * @param text Raw user input string.
+     * @return Sanitized text safe for pipe-delimited storage.
+     */
     public static String clean(String text) {
         if (text == null) {
             return "";
         }
-        return text.replace("|", "/").replace("\n", " ").replace("\r", " ");
+        return text.replace("|", "/")
+                   .replace("\n", " ")
+                   .replace("\r", " ")
+                   .trim();
     }
 }

@@ -9,11 +9,23 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-// Unified web and API configuration for http://localhost:8080
+/**
+ * ============================================================================
+ * UNIFIED WEB & RESOURCE CONFIGURATION
+ * Group: SE1020 Group WD04
+ * ============================================================================
+ * 
+ * Configures the Spring MVC layer to:
+ * 1. Enable full CORS for REST API communication.
+ * 2. Forward root URL requests ("/") directly to "index.html".
+ * 3. Serve frontend HTML/CSS/JS files and uploaded property photos from disk.
+ */
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
 
-    // 1) CORS: allow all origins so any local setup or tool can connect
+    /**
+     * CORS Configuration: Allows cross-origin requests from any local development server or tool.
+     */
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
@@ -21,35 +33,41 @@ public class WebConfig implements WebMvcConfigurer {
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS");
     }
 
-    // 2) Forward root "/" directly to "/index.html" so opening http://localhost:8080 loads the site
+    /**
+     * Root View Controller: Forwards http://localhost:8080/ to http://localhost:8080/index.html.
+     */
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/").setViewName("forward:/index.html");
     }
 
-    // 3) Serve uploaded images AND the frontend web pages
+    /**
+     * Static Resource Handlers: Maps file paths so the single Spring Boot server serves:
+     * - Uploaded property photos at /images/**
+     * - Frontend web assets (HTML, CSS, JS) at /**
+     */
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        // Uploaded property photos in data/images/
+        // 1. Uploaded property images
         List<String> imageLocations = new ArrayList<>();
-        File imgFolder1 = new File("data/images").getAbsoluteFile();
-        File imgFolder2 = new File("backend/data/images").getAbsoluteFile();
-        File imgFolder3 = new File("../data/images").getAbsoluteFile();
-        if (imgFolder1.exists()) {
-            imageLocations.add("file:" + imgFolder1.getAbsolutePath().replace('\\', '/') + "/");
+        File img1 = new File("data/images").getAbsoluteFile();
+        File img2 = new File("backend/data/images").getAbsoluteFile();
+        File img3 = new File("../data/images").getAbsoluteFile();
+        if (img1.exists()) {
+            imageLocations.add("file:" + img1.getAbsolutePath().replace('\\', '/') + "/");
         }
-        if (imgFolder2.exists()) {
-            imageLocations.add("file:" + imgFolder2.getAbsolutePath().replace('\\', '/') + "/");
+        if (img2.exists()) {
+            imageLocations.add("file:" + img2.getAbsolutePath().replace('\\', '/') + "/");
         }
-        if (imgFolder3.exists()) {
-            imageLocations.add("file:" + imgFolder3.getAbsolutePath().replace('\\', '/') + "/");
+        if (img3.exists()) {
+            imageLocations.add("file:" + img3.getAbsolutePath().replace('\\', '/') + "/");
         }
-        imageLocations.add("file:" + imgFolder1.getAbsolutePath().replace('\\', '/') + "/");
+        imageLocations.add("file:" + img1.getAbsolutePath().replace('\\', '/') + "/");
 
         registry.addResourceHandler("/images/**")
                 .addResourceLocations(imageLocations.toArray(new String[0]));
 
-        // Frontend static files (HTML, CSS, JS)
+        // 2. Frontend web application (HTML, CSS, JS)
         List<String> frontendLocations = new ArrayList<>();
         File front1 = new File("../frontend").getAbsoluteFile();
         File front2 = new File("frontend").getAbsoluteFile();

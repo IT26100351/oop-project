@@ -4,11 +4,28 @@ import com.shaahid.portal.common.FileHelper;
 import java.util.ArrayList;
 import java.util.List;
 
-// All the CRUD work for reviews. Data file: data/reviews.txt
+/**
+ * ============================================================================
+ * BUSINESS LOGIC & DATA ACCESS: REVIEW MANAGEMENT
+ * Group Member: Thasreef (Member #5)
+ * Package: com.shaahid.portal.review
+ * Data Store: data/reviews.txt
+ * ============================================================================
+ * 
+ * Implements CRUD operations for customer property reviews:
+ * 1. CREATE (addReview): Assigns next ID ("R001") and persists review.
+ * 2. READ (getAllReviews, getReviewsByProperty, getReviewById):
+ *    - Allows filtering reviews by property ID for property details view.
+ * 3. UPDATE (updateReview): Updates existing review comments and ratings.
+ * 4. DELETE (deleteReview): Removes a review by ID.
+ */
 public class ReviewManager {
 
     private static final String FILE = "data/reviews.txt";
 
+    /**
+     * Converts a single text line from data/reviews.txt into a Review object.
+     */
     private Review lineToReview(String line) {
         String[] parts = line.split("\\|", -1);
         int rating = 5;
@@ -17,11 +34,21 @@ public class ReviewManager {
                 rating = Integer.parseInt(parts[4].trim());
             }
         } catch (NumberFormatException e) {
-            // default 5
+            rating = 5;
         }
-        return new Review(parts[0], parts[1], parts[2], parts[3], rating, parts.length > 5 ? parts[5] : "");
+        return new Review(
+            parts[0], 
+            parts[1], 
+            parts[2], 
+            parts[3], 
+            rating, 
+            parts.length > 5 ? parts[5] : ""
+        );
     }
 
+    /**
+     * Rewrites data/reviews.txt with all current reviews.
+     */
     private void saveAll(List<Review> reviews) {
         List<String> lines = new ArrayList<>();
         for (Review review : reviews) {
@@ -30,7 +57,9 @@ public class ReviewManager {
         FileHelper.writeLines(FILE, lines);
     }
 
-    // READ ALL
+    /**
+     * READ ALL: Retrieves all reviews in the system.
+     */
     public List<Review> getAllReviews() {
         List<Review> reviews = new ArrayList<>();
         for (String line : FileHelper.readLines(FILE)) {
@@ -39,7 +68,13 @@ public class ReviewManager {
         return reviews;
     }
 
-    // READ: only the reviews of one property
+    /**
+     * READ BY PROPERTY: Returns only reviews matching a specific property ID.
+     * Used by details.html to display reviews for the currently viewed property.
+     *
+     * @param propertyId Target property ID (e.g., "H001", "A001").
+     * @return Filtered list of Review objects.
+     */
     public List<Review> getReviewsByProperty(String propertyId) {
         List<Review> result = new ArrayList<>();
         for (Review review : getAllReviews()) {
@@ -50,7 +85,9 @@ public class ReviewManager {
         return result;
     }
 
-    // READ ONE
+    /**
+     * READ ONE: Retrieves a review by its ID.
+     */
     public Review getReviewById(String id) {
         for (Review review : getAllReviews()) {
             if (review.getId().equals(id)) {
@@ -60,7 +97,9 @@ public class ReviewManager {
         return null;
     }
 
-    // CREATE
+    /**
+     * CREATE: Appends a new review with auto-generated ID (e.g., "R001").
+     */
     public Review addReview(Review review) {
         List<String> lines = FileHelper.readLines(FILE);
         review.setId(FileHelper.nextId("R", lines));
@@ -69,7 +108,9 @@ public class ReviewManager {
         return review;
     }
 
-    // UPDATE
+    /**
+     * UPDATE: Modifies review text and rating for an existing review.
+     */
     public Review updateReview(String id, Review newData) {
         List<Review> reviews = getAllReviews();
         for (int i = 0; i < reviews.size(); i++) {
@@ -83,7 +124,9 @@ public class ReviewManager {
         return null;
     }
 
-    // DELETE
+    /**
+     * DELETE: Removes a review by ID.
+     */
     public boolean deleteReview(String id) {
         List<Review> reviews = getAllReviews();
         for (int i = 0; i < reviews.size(); i++) {

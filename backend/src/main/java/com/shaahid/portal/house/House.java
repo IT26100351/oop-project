@@ -2,40 +2,70 @@ package com.shaahid.portal.house;
 
 import com.shaahid.portal.common.Property;
 
-// A House IS-A Property (INHERITANCE: "extends Property").
-// It gets id, size, price, address, owner ... from Property for free
-// and only adds what is special about a house: the number of rooms.
+/**
+ * ============================================================================
+ * OOP CONCEPT: INHERITANCE, POLYMORPHISM & ENCAPSULATION
+ * Group Member: Amaya (Member #2)
+ * Package: com.shaahid.portal.house
+ * Data Store: data/houses.txt
+ * ============================================================================
+ * 
+ * 1. INHERITANCE:
+ *    - Extends the abstract Property class ("House IS-A Property").
+ *    - Reuses common fields: id, userId, size, sizeUnit, price, listingType, imageName, address, owner.
+ *    - Specializes with house-specific attributes: 'rooms' (number of bedrooms/rooms).
+ * 
+ * 2. POLYMORPHISM:
+ *    - Overrides getType() to return "house".
+ *    - Overrides getDescription() using super.getDescription() to create a custom house description.
+ *    - Overrides toFileString() to append house-specific fields to the parent's serialized record.
+ * 
+ * 3. ENCAPSULATION:
+ *    - 'rooms' is private with public getters and setters.
+ */
 public class House extends Property {
 
-    private int rooms;   // number of rooms
+    // Number of rooms in the house
+    private int rooms;
 
-    // Empty constructor (needed so Spring can build a House from JSON)
+    // Default constructor needed for JSON deserialization by Spring Boot
     public House() {
     }
 
-    // Constructor with the extra field
+    // Parameterized constructor
     public House(int rooms) {
         this.rooms = rooms;
     }
 
-    // Every child must say what type it is
+    /**
+     * Identifies this concrete Property type.
+     */
     @Override
     public String getType() {
         return "house";
     }
 
-    // POLYMORPHISM: we OVERRIDE getDescription() to give a house-style sentence.
-    // "super.getDescription()" calls the parent's version and we add to it.
+    /**
+     * POLYMORPHISM: Overrides the base description to include room count.
+     * Calls super.getDescription() to build upon the parent's logic.
+     */
     @Override
     public String getDescription() {
         return rooms + " room house, " + super.getDescription();
     }
 
-    // A house line in the file = the parent's line + "|rooms"
+    /**
+     * Serializes this House into a pipe-delimited line for data/houses.txt.
+     * Format: <Property fields>|rooms
+     */
     @Override
     public String toFileString() {
         return super.toFileString() + "|" + rooms;
     }
+
+    // =========================================================================
+    // ENCAPSULATION: Getters and Setters
+    // =========================================================================
 
     public int getRooms() {
         return rooms;

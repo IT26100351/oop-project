@@ -3,22 +3,48 @@ package com.shaahid.portal.user;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.shaahid.portal.common.FileHelper;
 
-// A person with an account. Saved in data/users.txt
+/**
+ * ============================================================================
+ * OOP CONCEPT: ENCAPSULATION & DATA MODELING
+ * Group Member: Shaahid (Member #1)
+ * Package: com.shaahid.portal.user
+ * Data Store: data/users.txt
+ * ============================================================================
+ * 
+ * Represents a registered user account in the HomeFinder portal.
+ * 
+ * ENCAPSULATION:
+ * - All user attributes (id, name, nic, email, password) are strictly private.
+ * - Access is exposed via public getters and setters.
+ * 
+ * SECURITY:
+ * - The password attribute uses @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+ *   so that passwords can be received from client requests during signup/login,
+ *   but are never serialized back in HTTP JSON responses to the frontend.
+ */
 public class User {
 
-    private String id;        // e.g. U001
+    // Unique user identifier (e.g., U001, U002)
+    private String id;
+
+    // Full name of the user
     private String name;
-    private String nic;       // National Identity Card number
+
+    // Sri Lankan National Identity Card (NIC) number
+    private String nic;
+
+    // Unique email address used as login username
     private String email;
 
-    // WRITE_ONLY = the password can be RECEIVED from the frontend,
-    // but is never SENT back to it (so it can't be seen in the browser).
+    // User password (WRITE_ONLY prevents exposure in frontend JSON responses)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
+    // Default constructor required for JSON deserialization
     public User() {
     }
 
+    // Parameterized constructor
     public User(String id, String name, String nic, String email, String password) {
         this.id = id;
         this.name = name;
@@ -27,11 +53,23 @@ public class User {
         this.password = password;
     }
 
-    // One line for the file: id|name|nic|email|password
+    /**
+     * Serializes this User object into a pipe-delimited record for users.txt.
+     * Format: id|name|nic|email|password
+     *
+     * @return Pipe-separated string.
+     */
     public String toFileString() {
-        return id + "|" + FileHelper.clean(name) + "|" + FileHelper.clean(nic) + "|"
-                + FileHelper.clean(email) + "|" + FileHelper.clean(password);
+        return id + "|" 
+                + FileHelper.clean(name) + "|" 
+                + FileHelper.clean(nic) + "|"
+                + FileHelper.clean(email) + "|" 
+                + FileHelper.clean(password);
     }
+
+    // =========================================================================
+    // ENCAPSULATION: Getters and Setters
+    // =========================================================================
 
     public String getId() {
         return id;

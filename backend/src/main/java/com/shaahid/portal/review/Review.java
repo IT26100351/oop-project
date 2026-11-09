@@ -2,19 +2,45 @@ package com.shaahid.portal.review;
 
 import com.shaahid.portal.common.FileHelper;
 
-// A comment + star rating about ONE property. Saved in data/reviews.txt
+/**
+ * ============================================================================
+ * OOP CONCEPT: ENCAPSULATION & DATA MODELING
+ * Group Member: Thasreef (Member #5)
+ * Package: com.shaahid.portal.review
+ * Data Store: data/reviews.txt
+ * ============================================================================
+ * 
+ * Represents a customer star rating (1-5) and feedback comment for any Property.
+ * 
+ * ENCAPSULATION:
+ * - All attributes (id, propertyId, userId, userName, rating, comment) are private.
+ * - Access is provided through public getters and setters.
+ */
 public class Review {
 
-    private String id;           // e.g. R001
-    private String propertyId;   // which property this review is about, e.g. H001
-    private String userId;       // who wrote it
-    private String userName;     // shown next to the review
-    private int rating;          // 1 to 5 stars
+    // Unique review identifier (e.g., R001, R002)
+    private String id;
+
+    // ID of the target property (House, Apartment, or Land) being reviewed (e.g., H001, A001)
+    private String propertyId;
+
+    // ID of the user account who authored this review
+    private String userId;
+
+    // Display name of the reviewer
+    private String userName;
+
+    // Star rating score between 1 and 5
+    private int rating;
+
+    // Review comment / feedback text
     private String comment;
 
+    // Default constructor needed for JSON deserialization by Spring Boot
     public Review() {
     }
 
+    // Parameterized constructor
     public Review(String id, String propertyId, String userId, String userName, int rating, String comment) {
         this.id = id;
         this.propertyId = propertyId;
@@ -24,11 +50,22 @@ public class Review {
         this.comment = comment;
     }
 
-    // One line for the file: id|propertyId|userId|userName|rating|comment
+    /**
+     * Serializes this Review object into a pipe-delimited line for data/reviews.txt.
+     * Format: id|propertyId|userId|userName|rating|comment
+     */
     public String toFileString() {
-        return id + "|" + FileHelper.clean(propertyId) + "|" + FileHelper.clean(userId) + "|"
-                + FileHelper.clean(userName) + "|" + rating + "|" + FileHelper.clean(comment);
+        return id + "|" 
+                + FileHelper.clean(propertyId) + "|" 
+                + FileHelper.clean(userId) + "|"
+                + FileHelper.clean(userName) + "|" 
+                + rating + "|" 
+                + FileHelper.clean(comment);
     }
+
+    // =========================================================================
+    // ENCAPSULATION: Getters and Setters
+    // =========================================================================
 
     public String getId() {
         return id;

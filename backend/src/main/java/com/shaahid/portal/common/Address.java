@@ -1,24 +1,43 @@
 package com.shaahid.portal.common;
 
-// COMPOSITION example:
-// An Address only makes sense INSIDE a property. A Property creates its own Address,
-// and if the property is deleted its address is gone too. (The Address has no life of its own.)
+/**
+ * ============================================================================
+ * OOP CONCEPT: COMPOSITION & ENCAPSULATION
+ * Group: SE1020 Group WD04
+ * Component: Shared Common Address Component
+ * ============================================================================
+ * 
+ * COMPOSITION:
+ * - An Address is a vital sub-component of a Property.
+ * - An address cannot meaningfully exist without a property to which it belongs.
+ * - Created directly by the Property class instance.
+ * 
+ * ENCAPSULATION:
+ * - Attributes 'location' and 'street' are declared private.
+ * - Access is strictly controlled through public getters and setters.
+ */
 public class Address {
 
-    private String location;   // town / city, e.g. "Colombo"
-    private String street;     // full address, e.g. "12 Galle Road, Colombo 03"
+    // Town, city, or district (e.g., "Colombo 07", "Kandy", "Mount Lavinia")
+    private String location;
 
-    // Empty constructor (Spring needs it to build the object from JSON)
+    // Detailed street address (e.g., "15 Gregory's Road", "42 Chapel Road")
+    private String street;
+
+    // Default constructor needed for Spring Boot JSON deserialization
     public Address() {
     }
 
-    // Constructor that sets both values at once
+    // Parameterized constructor for initialization
     public Address(String location, String street) {
         this.location = location;
         this.street = street;
     }
 
-    // Getters and setters (ENCAPSULATION: fields are private, we reach them through methods)
+    // =========================================================================
+    // ENCAPSULATION: Getters and Setters
+    // =========================================================================
+
     public String getLocation() {
         return location;
     }

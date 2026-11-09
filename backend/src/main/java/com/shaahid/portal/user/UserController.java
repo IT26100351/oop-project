@@ -4,20 +4,33 @@ import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-// URLs for the user part:
-//   POST   /api/users/signup   -> create an account
-//   POST   /api/users/login    -> log in (email + password)
-//   GET    /api/users          -> all users
-//   GET    /api/users/U001     -> one user
-//   PUT    /api/users/U001     -> update
-//   DELETE /api/users/U001     -> delete
+/**
+ * ============================================================================
+ * REST CONTROLLER: USER API
+ * Group Member: Shaahid (Member #1)
+ * Package: com.shaahid.portal.user
+ * Base URL: /api/users
+ * ============================================================================
+ * 
+ * Endpoints:
+ *   POST   /api/users/signup   -> Registers a new user account
+ *   POST   /api/users/login    -> Authenticates user credentials
+ *   GET    /api/users          -> Returns all users (JSON array)
+ *   GET    /api/users/{id}     -> Returns a specific user by ID
+ *   PUT    /api/users/{id}     -> Updates user details
+ *   DELETE /api/users/{id}     -> Removes user account
+ */
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
 
+    // Instance of UserManager providing CRUD business logic
     private UserManager manager = new UserManager();
 
-    // SIGNUP: needs name, NIC, email and password
+    /**
+     * User registration endpoint.
+     * Validates required inputs (name, NIC, email, password) and checks for email uniqueness.
+     */
     @PostMapping("/signup")
     public ResponseEntity<?> signup(@RequestBody User user) {
         if (isEmpty(user.getName()) || isEmpty(user.getNic()) || isEmpty(user.getEmail()) || isEmpty(user.getPassword())) {
@@ -29,7 +42,10 @@ public class UserController {
         return ResponseEntity.ok(manager.addUser(user));
     }
 
-    // LOGIN: needs only email and password
+    /**
+     * User authentication endpoint.
+     * Verifies provided email and password.
+     */
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody User loginData) {
         User user = manager.login(loginData.getEmail(), loginData.getPassword());
@@ -39,11 +55,17 @@ public class UserController {
         return ResponseEntity.ok(user);
     }
 
+    /**
+     * Retrieves all registered users.
+     */
     @GetMapping
     public List<User> getAll() {
         return manager.getAllUsers();
     }
 
+    /**
+     * Retrieves a single user by ID.
+     */
     @GetMapping("/{id}")
     public ResponseEntity<?> getOne(@PathVariable String id) {
         User user = manager.getUserById(id);
@@ -53,6 +75,9 @@ public class UserController {
         return ResponseEntity.ok(user);
     }
 
+    /**
+     * Updates an existing user's information.
+     */
     @PutMapping("/{id}")
     public ResponseEntity<?> update(@PathVariable String id, @RequestBody User user) {
         User updated = manager.updateUser(id, user);
@@ -62,6 +87,9 @@ public class UserController {
         return ResponseEntity.ok(updated);
     }
 
+    /**
+     * Deletes a user account by ID.
+     */
     @DeleteMapping("/{id}")
     public ResponseEntity<?> delete(@PathVariable String id) {
         if (manager.deleteUser(id)) {
@@ -70,7 +98,7 @@ public class UserController {
         return ResponseEntity.status(404).body("User not found");
     }
 
-    // small helper: true when text is missing or only spaces
+    // Helper: Validates whether a text string is null or whitespace
     private boolean isEmpty(String text) {
         return text == null || text.isBlank();
     }
