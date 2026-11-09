@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HomeQuest - Premium Real Estate Company | Architectural Living & Prime Investments</title>
+  <meta name="description" content="HomeQuest - Premium real estate in Sri Lanka. Discover architecturally crafted houses, luxury sky residencies, and verified investment lands.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css?v=3">
+</head>
+<body>
+
+<!-- Navigation Bar -->
+<div id="navbar"></div>
+
+<!-- HOMEQUEST CINEMATIC HERO — FULL-SCREEN VIDEO WITH GLASSMORPHIC HEADING -->
+<section class="agency-video-banner">
+  <!-- Cinematic Real Estate Video Background (trimmed 00:25–00:40) -->
+  <div class="agency-banner-video-wrap">
+    <video autoplay muted loop playsinline id="heroVideo">
+      <source src="videos/hero-clip.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="agency-banner-overlay"></div>
+
+  <!-- Content Layer — Pure Floating Typography directly over video -->
+  <div class="agency-banner-inner hero-heading-only">
+    <h1 class="hero-bold-title" id="heroTitle">
+      <span class="hero-text-muted">FIND YOUR</span><br>
+      <span class="hero-text-muted">DREAM</span> <span class="hero-word-home">HOME</span><br>
+      <span class="hero-text-muted">TODAY</span>
+    </h1>
+  </div>
+</section>
+
+<!-- FLOATING GLASSMORPHIC SEARCH & DISCOVERY HUB -->
+<div class="search-wrap" id="search-section">
+  <div class="tabs-header">
+    <div class="tabs" role="tablist">
+      <button class="tab on" data-mode="" id="tabAll">All Listings</button>
+      <button class="tab" data-mode="Sale" id="tabSale">For Sale</button>
+      <button class="tab" data-mode="Rent" id="tabRent">For Rent</button>
+      <button class="tab" data-mode="Lease" id="tabLease">For Lease</button>
+    </div>
+  </div>
+
+  <div class="search">
+    <div class="search-field">
+      <label for="fType">Portfolio Category</label>
+      <select id="fType">
+        <option value="">All Categories</option>
+        <option value="house">🏡 Luxury House</option>
+        <option value="apartment">🏢 Modern Apartment</option>
+        <option value="land">🌴 Prime Land Plot</option>
+      </select>
+    </div>
+
+    <div class="search-field">
+      <label for="fLocation">District / Region</label>
+      <input id="fLocation" placeholder="e.g. Colombo, Kandy, Galle">
+    </div>
+
+    <div class="search-field">
+      <label for="fPrice">Max Budget (Rs.)</label>
+      <input id="fPrice" type="number" min="0" placeholder="e.g. 50,000,000">
+    </div>
+
+    <div class="search-field">
+      <label for="fWord">Search Keyword</label>
+      <input id="fWord" placeholder="e.g. Garden, Sea View, Pool">
+    </div>
+
+    <button class="btn" id="searchBtn" style="height:48px">
+      <span>🔍 Search Properties</span>
+    </button>
+
+    <!-- Category Quick-Filter Bar -->
+    <div class="category-pills-bar">
+      <span class="pill-label">Filter Category:</span>
+      <button type="button" class="cat-pill active" onclick="setQuickType('')">❖ All</button>
+      <button type="button" class="cat-pill" onclick="setQuickType('land')">🌴 Prime Lands</button>
+      <button type="button" class="cat-pill" onclick="setQuickType('house')">🏡 Luxury Houses</button>
+      <button type="button" class="cat-pill" onclick="setQuickType('apartment')">🏢 City Apartments</button>
+      <button type="button" class="cat-pill" style="margin-left:auto;color:var(--gold-light);border-color:var(--gold)" onclick="resetFilters()">↺ Reset Filters</button>
+    </div>
+  </div>
+</div>
+
+<!-- GLASS TRUST & MILESTONES BAR -->
+<div class="stats-bar reveal">
+  <div class="stat-item">
+    <div class="stat-number">30<span>+</span></div>
+    <div class="stat-label">Years of Proven Trust</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-number">18<span>+</span></div>
+    <div class="stat-label">Districts Covered Islandwide</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-number">300K<span>+</span></div>
+    <div class="stat-label">Satisfied Homeowners</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-number">100<span>%</span></div>
+    <div class="stat-label">Certified Title Deeds</div>
+  </div>
+</div>
+
+<!-- GLASS CATEGORY SPOTLIGHT CARDS -->
+<section class="spotlight-section reveal">
+  <div class="spotlight-grid">
+    <div class="spotlight-card reveal reveal-delay-1" style="background-image:url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=800')" onclick="setQuickType('land')">
+      <div class="spotlight-content">
+        <span class="spotlight-badge">Islandwide Plots</span>
+        <h3 class="spotlight-title">Prime Lands</h3>
+        <p class="spotlight-desc">Gated community residential plots & commercial lands with electricity, water and verified deeds.</p>
+      </div>
+    </div>
+
+    <div class="spotlight-card reveal reveal-delay-2" style="background-image:url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=800')" onclick="setQuickType('house')">
+      <div class="spotlight-content">
+        <span class="spotlight-badge">Architect Designed</span>
+        <h3 class="spotlight-title">Luxury Houses</h3>
+        <p class="spotlight-desc">Modern villas, serene suburban estates, and peaceful family bungalows crafted for generations.</p>
+      </div>
+    </div>
+
+    <div class="spotlight-card reveal reveal-delay-3" style="background-image:url('https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?q=80&w=800')" onclick="setQuickType('apartment')">
+      <div class="spotlight-content">
+        <span class="spotlight-badge">Urban Living</span>
+        <h3 class="spotlight-title">City Apartments</h3>
+        <p class="spotlight-desc">High-rise residencies featuring rooftop sky lounges, swimming pools, gymnasiums & 24/7 concierge.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================
+     NEW ARRIVALS - HORIZONTAL SCROLL SECTION
+     ==================================================== -->
+<section class="new-arrivals-section reveal" id="new-arrivals-section">
+  <div class="arrivals-header-row">
+    <div>
+      <div class="new-badge">Live Listings</div>
+      <h2>New Arrivals</h2>
+      <p>The freshest listings added to HomeQuest — updated in real time from verified owners.</p>
+    </div>
+    <div class="arrivals-nav">
+      <button class="arrivals-arrow" id="arrivalsLeft" onclick="scrollArrivals(-1)" title="Scroll left">&#8592;</button>
+      <button class="arrivals-arrow" id="arrivalsRight" onclick="scrollArrivals(1)" title="Scroll right">&#8594;</button>
+    </div>
+  </div>
+  <div class="arrivals-scroll-wrap">
+    <div class="arrivals-scroll" id="arrivalsScroll">
+      <!-- Populated dynamically -->
+      <div style="display:flex;align-items:center;padding:40px;color:var(--text-muted);font-size:14px">Loading latest listings...</div>
+    </div>
+  </div>
+</section>
+
+<!-- ====================================================
+     TRENDING PROPERTIES - MOST VIEWED & INQUIRED
+     ==================================================== -->
+<section class="trending-section reveal" id="trending-section">
+  <div class="trending-header-row">
+    <div>
+      <div class="trending-badge">High Demand</div>
+      <h2>Trending Properties</h2>
+      <p>Most viewed and sought-after listings calculated from verified client opens &amp; market interest.</p>
+    </div>
+    <div class="trending-nav">
+      <button class="trending-arrow" id="trendingLeft" onclick="scrollTrending(-1)" title="Scroll left">&#8592;</button>
+      <button class="trending-arrow" id="trendingRight" onclick="scrollTrending(1)" title="Scroll right">&#8594;</button>
+    </div>
+  </div>
+  <div class="trending-scroll-wrap">
+    <div class="trending-scroll" id="trendingScroll">
+      <!-- Populated dynamically -->
+      <div style="display:flex;align-items:center;padding:40px;color:var(--text-muted);font-size:14px">Calculating trending listings...</div>
+    </div>
+  </div>
+</section>
+
+<!-- MAIN VERIFIED LISTINGS SECTION -->
+<section class="section scroll-in-section reveal" id="listings-section">
+  <div class="section-header reveal">
+    <div class="section-header-left">
+      <h2 id="heading">Discover Our Curated Listings</h2>
+      <p>Handpicked properties updated directly by verified owners and trusted advisors.</p>
+    </div>
+    <div>
+      <span class="listing-count-badge" id="propCount">Loading verified listings...</span>
+    </div>
+  </div>
+
+  <div class="grid" id="list"></div>
+  <div class="empty" id="empty" style="display:none">
+    <div style="font-size:42px;margin-bottom:12px">🔍</div>
+    <h3>No properties match your current search criteria.</h3>
+    <p>Try clearing your keyword, adjusting the price ceiling, or switching to "All Categories".</p>
+    <button class="btn" style="margin-top:14px" onclick="resetFilters()">View All Properties</button>
+  </div>
+  <div class="show-more-wrap" id="showMoreWrap" style="display:none">
+    <button class="btn-show-more" id="showMoreBtn" onclick="showMoreProperties()">
+      <span>Explore More Properties</span>
+      <span class="show-more-count" id="showMoreRemaining"></span>
+      <span class="arrow-down">↓</span>
+    </button>
+  </div>
+</section>
+
+<!-- ====================================================
+     MARKET STATISTICS & PRICE TRENDS
+     ==================================================== -->
+<section class="market-stats-section reveal" id="market-stats">
+  <div class="section-center-head">
+    <span class="section-subtitle-tag">Sri Lanka Property Market</span>
+    <h2 class="section-title">Housing Market &amp; Price Statistics</h2>
+    <p class="section-desc">Average asking prices across Sri Lanka's key real estate categories over the last 12 months.</p>
+  </div>
+
+  <div class="market-chart-grid">
+    <!-- SVG LINE CHART -->
+    <div class="chart-panel">
+      <div class="chart-panel-title">Average Property Price Trend</div>
+      <div class="chart-panel-sub">Monthly average asking prices (Rs. millions) · Jan–Dec 2025</div>
+      <div class="chart-legend">
+        <div class="legend-item"><div class="legend-dot" style="background:#d4af37"></div>Luxury Houses</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#5dce8e"></div>City Apartments</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#7eb8f7"></div>Prime Lands</div>
+      </div>
+      <svg class="market-chart-svg" viewBox="0 0 600 240" preserveAspectRatio="xMidYMid meet" id="marketChartSvg">
+        <defs>
+          <linearGradient id="houseGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#d4af37" stop-opacity="0.45"/>
+            <stop offset="100%" stop-color="#d4af37" stop-opacity="0.02"/>
+          </linearGradient>
+          <linearGradient id="aptGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#5dce8e" stop-opacity="0.35"/>
+            <stop offset="100%" stop-color="#5dce8e" stop-opacity="0.02"/>
+          </linearGradient>
+          <linearGradient id="landGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#7eb8f7" stop-opacity="0.3"/>
+            <stop offset="100%" stop-color="#7eb8f7" stop-opacity="0.02"/>
+          </linearGradient>
+        </defs>
+        <!-- Grid lines -->
+        <line class="chart-grid-line" x1="40" y1="20" x2="40" y2="200"/>
+        <line class="chart-grid-line" x1="40" y1="20" x2="590" y2="20"/>
+        <line class="chart-grid-line" x1="40" y1="65" x2="590" y2="65"/>
+        <line class="chart-grid-line" x1="40" y1="110" x2="590" y2="110"/>
+        <line class="chart-grid-line" x1="40" y1="155" x2="590" y2="155"/>
+        <line class="chart-grid-line" x1="40" y1="200" x2="590" y2="200"/>
+        <!-- Y Axis labels -->
+        <text class="chart-axis-label" x="32" y="24" text-anchor="end">80M</text>
+        <text class="chart-axis-label" x="32" y="69" text-anchor="end">60M</text>
+        <text class="chart-axis-label" x="32" y="114" text-anchor="end">40M</text>
+        <text class="chart-axis-label" x="32" y="159" text-anchor="end">20M</text>
+        <text class="chart-axis-label" x="32" y="204" text-anchor="end">0</text>
+        <!-- X Axis labels -->
+        <text class="chart-axis-label" x="85" y="218" text-anchor="middle">Jan</text>
+        <text class="chart-axis-label" x="131" y="218" text-anchor="middle">Feb</text>
+        <text class="chart-axis-label" x="177" y="218" text-anchor="middle">Mar</text>
+        <text class="chart-axis-label" x="223" y="218" text-anchor="middle">Apr</text>
+        <text class="chart-axis-label" x="269" y="218" text-anchor="middle">May</text>
+        <text class="chart-axis-label" x="315" y="218" text-anchor="middle">Jun</text>
+        <text class="chart-axis-label" x="361" y="218" text-anchor="middle">Jul</text>
+        <text class="chart-axis-label" x="407" y="218" text-anchor="middle">Aug</text>
+        <text class="chart-axis-label" x="453" y="218" text-anchor="middle">Sep</text>
+        <text class="chart-axis-label" x="499" y="218" text-anchor="middle">Oct</text>
+        <text class="chart-axis-label" x="545" y="218" text-anchor="middle">Nov</text>
+        <text class="chart-axis-label" x="585" y="218" text-anchor="middle">Dec</text>
+        <!-- House area -->
+        <path class="chart-area-house" d="M85,95 L131,90 L177,82 L223,75 L269,70 L315,65 L361,60 L407,55 L453,52 L499,48 L545,44 L585,40 L585,200 L85,200 Z"/>
+        <!-- Apartment area -->
+        <path class="chart-area-apartment" d="M85,145 L131,142 L177,138 L223,135 L269,130 L315,125 L361,122 L407,118 L453,115 L499,110 L545,105 L585,100 L585,200 L85,200 Z"/>
+        <!-- Land area -->
+        <path style="fill:url(#landGrad);opacity:0.5" d="M85,170 L131,168 L177,165 L223,162 L269,158 L315,155 L361,152 L407,148 L453,145 L499,140 L545,138 L585,135 L585,200 L85,200 Z"/>
+        <!-- House line -->
+        <path class="chart-line-house" d="M85,95 L131,90 L177,82 L223,75 L269,70 L315,65 L361,60 L407,55 L453,52 L499,48 L545,44 L585,40"/>
+        <!-- Apartment line -->
+        <path class="chart-line-apartment" d="M85,145 L131,142 L177,138 L223,135 L269,130 L315,125 L361,122 L407,118 L453,115 L499,110 L545,105 L585,100"/>
+        <!-- Land line -->
+        <path style="fill:none;stroke:#7eb8f7;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 6px rgba(126,184,247,0.5))" d="M85,170 L131,168 L177,165 L223,162 L269,158 L315,155 L361,152 L407,148 L453,145 L499,140 L545,138 L585,135"/>
+        <!-- House data dots -->
+        <circle class="chart-dot" cx="85" cy="95" r="4" fill="#d4af37"/>
+        <circle class="chart-dot" cx="177" cy="82" r="4" fill="#d4af37"/>
+        <circle class="chart-dot" cx="315" cy="65" r="4" fill="#d4af37"/>
+        <circle class="chart-dot" cx="453" cy="52" r="4" fill="#d4af37"/>
+        <circle class="chart-dot" cx="585" cy="40" r="4" fill="#d4af37"/>
+        <!-- Apartment data dots -->
+        <circle class="chart-dot" cx="85" cy="145" r="4" fill="#5dce8e"/>
+        <circle class="chart-dot" cx="177" cy="138" r="4" fill="#5dce8e"/>
+        <circle class="chart-dot" cx="315" cy="125" r="4" fill="#5dce8e"/>
+        <circle class="chart-dot" cx="453" cy="115" r="4" fill="#5dce8e"/>
+        <circle class="chart-dot" cx="585" cy="100" r="4" fill="#5dce8e"/>
+      </svg>
+    </div>
+
+    <!-- Summary cards -->
+    <div class="market-summary-stack">
+      <div class="market-summary-card house-card reveal">
+        <div class="msc-label">Avg. House Price</div>
+        <div class="msc-value">Rs. 52M</div>
+        <div class="msc-change up">▲ 18.4% vs last year</div>
+        <div class="msc-range">Range: Rs. 18M – Rs. 185M</div>
+        <div class="msc-bar-wrap"><div class="msc-bar-fill" style="--bar-pct:72%"></div></div>
+      </div>
+      <div class="market-summary-card apt-card reveal reveal-delay-1">
+        <div class="msc-label">Avg. Apartment Price</div>
+        <div class="msc-value">Rs. 28M</div>
+        <div class="msc-change up">▲ 12.1% vs last year</div>
+        <div class="msc-range">Range: Rs. 8M – Rs. 95M</div>
+        <div class="msc-bar-wrap"><div class="msc-bar-fill" style="--bar-pct:55%"></div></div>
+      </div>
+      <div class="market-summary-card land-card reveal reveal-delay-2">
+        <div class="msc-label">Avg. Land Price / Perch</div>
+        <div class="msc-value">Rs. 4.2M</div>
+        <div class="msc-change up">▲ 9.7% vs last year</div>
+        <div class="msc-range">Colombo suburbs · per perch</div>
+        <div class="msc-bar-wrap"><div class="msc-bar-fill" style="--bar-pct:38%"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CLIENT FEEDBACK & TESTIMONIALS SECTION -->
+<section class="feedback-section" id="feedback">
+  <div class="feedback-header-row">
+    <div>
+      <span class="section-subtitle-tag" style="color:var(--gold-light)">Voices of Trust</span>
+      <h2 class="section-title">What Our Valued Clients Say</h2>
+      <p class="section-desc">Real experiences from homeowners, land buyers, and tenants across Sri Lanka.</p>
+    </div>
+    <div>
+      <button class="btn btn-outline" onclick="openReviewModal()">+ Share Your Feedback</button>
+    </div>
+  </div>
+
+  <div class="reviews-grid" id="reviewsGrid">
+    <!-- Populated dynamically via JavaScript + featured prime testimonials -->
+  </div>
+</section>
+
+<!-- FEEDBACK SUBMISSION MODAL -->
+<div class="modal-overlay" id="reviewModal">
+  <div class="modal-card">
+    <button class="modal-close" onclick="closeReviewModal()">&times;</button>
+    <h2 style="font-family:'Outfit',sans-serif;margin-top:0;color:#ffffff;font-size:24px">Share Your Experience</h2>
+    <p style="color:var(--text-muted);font-size:14px;margin-bottom:20px">Your feedback helps fellow Sri Lankans make confident property decisions with HomeQuest.</p>
+
+    <div class="field">
+      <label>Your Rating</label>
+      <div class="star-rating-select" id="starSelector">
+        <span class="star selected" data-value="1">★</span>
+        <span class="star selected" data-value="2">★</span>
+        <span class="star selected" data-value="3">★</span>
+        <span class="star selected" data-value="4">★</span>
+        <span class="star selected" data-value="5">★</span>
+      </div>
+      <input type="hidden" id="revRating" value="5">
+    </div>
+
+    <div class="field">
+      <label for="revProperty">Select Related Property</label>
+      <select id="revProperty">
+        <option value="">No properties available</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="revComment">Your Review or Comments</label>
+      <textarea id="revComment" rows="4" placeholder="Describe the property condition, neighborhood, and your experience with HomeQuest..."></textarea>
+    </div>
+
+    <div class="msg" id="revMsg"></div>
+
+    <button class="btn" style="width:100%" onclick="submitFeedback()">Submit Feedback</button>
+  </div>
+</div>
+
+<!-- Footer Container -->
+<div id="footer"></div>
+
+<script src="js/app.js"></script>
+<script>
+  // Top bar link (?type=house / apartment / land) filter detection
+  const params = new URLSearchParams(location.search);
+  const urlType = params.get("type") || "";
+  const urlLoc = params.get("loc") || "";
+  renderNavbar(urlType || "home");
+
+  if (urlType) {
+    document.getElementById("fType").value = urlType;
+    highlightCatPill(urlType);
+  }
+  if (urlLoc) {
+    document.getElementById("fLocation").value = urlLoc;
+  }
+
+  const titles = {
+    house: "Houses for Sale & Rent in Sri Lanka",
+    apartment: "Luxury Apartments & Residencies",
+    land: "Prime Residential & Commercial Lands"
+  };
+  if (urlType && titles[urlType]) {
+    document.getElementById("heading").textContent = titles[urlType];
+  }
+
+  let all = [];       // every property from backend
+  let mode = "";      // "", Sale, Rent, Lease (transaction tabs)
+  let rowsShown = 3;  // Exactly 3 rows by default
+
+  function getGridCols() {
+    const grid = document.getElementById("list");
+    if (!grid) return 3;
+    const comp = window.getComputedStyle(grid).gridTemplateColumns;
+    if (!comp || comp === "none") return 3;
+    const count = comp.split(" ").filter(Boolean).length;
+    return count > 0 ? count : 3;
+  }
+
+  function getVisibleLimit() {
+    return rowsShown * getGridCols();
+  }
+
+  // Filter and show matching properties
+  function showResults() {
+    const type = document.getElementById("fType").value;
+    const loc = document.getElementById("fLocation").value.trim().toLowerCase();
+    const maxPrice = Number(document.getElementById("fPrice").value);
+    const word = document.getElementById("fWord").value.trim().toLowerCase();
+    
+    // When a person adds filters or search, hide new arrivals and trending lists
+    const hasFilter = Boolean(type || loc || maxPrice || word || mode);
+    const arrivalsSec = document.getElementById("new-arrivals-section");
+    const trendingSec = document.getElementById("trending-section");
+    if (arrivalsSec) arrivalsSec.style.display = hasFilter ? "none" : "";
+    if (trendingSec) trendingSec.style.display = hasFilter ? "none" : "";
+
+    const matches = [];
+    for (let i = all.length - 1; i >= 0; i--) {          // newest first
+      const p = all[i];
+      if (type && p.type !== type) continue;
+      if (mode && p.listingType !== mode) continue;
+      if (loc && !p.address.location.toLowerCase().includes(loc)) continue;
+      if (maxPrice && p.price > maxPrice) continue;
+      if (word && !(p.description + " " + p.address.street + " " + p.address.location).toLowerCase().includes(word)) continue;
+      matches.push(p);
+    }
+
+    // Limit to exactly 3 rows initially (and +3 rows on each Show More)
+    const limit = getVisibleLimit();
+    const pageItems = matches.slice(0, limit);
+    const html = pageItems.map(p => cardHTML(p)).join("");
+
+    document.getElementById("list").innerHTML = html;
+    document.getElementById("empty").style.display = matches.length === 0 ? "block" : "none";
+    
+    // Update Show More Button state
+    const showMoreWrap = document.getElementById("showMoreWrap");
+    const showMoreRemaining = document.getElementById("showMoreRemaining");
+    if (showMoreWrap) {
+      if (matches.length > limit) {
+        showMoreWrap.style.display = "block";
+        const remaining = matches.length - limit;
+        if (showMoreRemaining) {
+          showMoreRemaining.textContent = `+${remaining} more`;
+        }
+      } else {
+        showMoreWrap.style.display = "none";
+      }
+    }
+
+    const countBadge = document.getElementById("propCount");
+    if (countBadge) {
+      countBadge.textContent = `${matches.length} Verified ${matches.length === 1 ? 'Property' : 'Properties'} Available`;
+    }
+  }
+
+  function showMoreProperties() {
+    rowsShown += 3; // Reveal next 3 rows
+    showResults();
+  }
+
+  window.addEventListener("resize", () => {
+    if (all && all.length) showResults();
+  });
+
+  // Quick category switchers
+  function setQuickType(type) {
+    rowsShown = 3;
+    document.getElementById("fType").value = type;
+    highlightCatPill(type);
+    const titlesMap = {
+      house: "Houses for Sale & Rent in Sri Lanka",
+      apartment: "Luxury Apartments & Residencies",
+      land: "Prime Residential & Commercial Lands"
+    };
+    document.getElementById("heading").textContent = titlesMap[type] || "Discover Our Curated Listings";
+    showResults();
+    document.getElementById("listings-section").scrollIntoView({ behavior: "smooth" });
+  }
+
+  function highlightCatPill(type) {
+    document.querySelectorAll(".cat-pill").forEach(p => {
+      const match = (type === "" && p.textContent.includes("All")) ||
+                    (type === "land" && p.textContent.includes("Lands")) ||
+                    (type === "house" && p.textContent.includes("Houses")) ||
+                    (type === "apartment" && p.textContent.includes("Apartments"));
+      p.classList.toggle("active", match);
+    });
+  }
+
+  function resetFilters() {
+    rowsShown = 3;
+    document.getElementById("fType").value = "";
+    document.getElementById("fLocation").value = "";
+    document.getElementById("fPrice").value = "";
+    document.getElementById("fWord").value = "";
+    mode = "";
+    document.querySelectorAll(".tab").forEach(x => x.classList.remove("on"));
+    document.getElementById("tabAll").classList.add("on");
+    highlightCatPill("");
+    document.getElementById("heading").textContent = "Discover Our Curated Listings";
+    showResults();
+  }
+
+  // Hook up search button & tabs
+  document.getElementById("searchBtn").onclick = () => {
+    rowsShown = 3;
+    showResults();
+    document.getElementById("listings-section").scrollIntoView({ behavior: "smooth" });
+  };
+  
+  // Enter key in inputs triggers search
+  ["fLocation", "fPrice", "fWord"].forEach(id => {
+    document.getElementById(id).addEventListener("keypress", e => {
+      if (e.key === "Enter") {
+        rowsShown = 3;
+        showResults();
+        document.getElementById("listings-section").scrollIntoView({ behavior: "smooth" });
+      }
+    });
+  });
+
+  document.querySelectorAll(".tab").forEach(t => {
+    t.onclick = () => {
+      rowsShown = 3;
+      document.querySelectorAll(".tab").forEach(x => x.classList.remove("on"));
+      t.classList.add("on");
+      mode = t.dataset.mode;
+      showResults();
+    };
+  });
+
+  document.getElementById("fType").onchange = e => {
+    rowsShown = 3;
+    highlightCatPill(e.target.value);
+    showResults();
+  };
+
+  // Populate properties list from backend
+  getAllProperties().then(list => {
+    all = list;
+    showResults();
+    populatePropertySelect(list);
+    populateNewArrivals(list);
+    populateTrending(list);
+  }).catch(() => {
+    document.getElementById("list").innerHTML =
+      '<div class="empty"><b>Backend Service Connecting:</b> Make sure the Spring Boot server is running on port 8080.</div>';
+    document.getElementById("propCount").textContent = "Service Offline";
+    populateNewArrivals([]);
+    populateTrending([]);
+  });
+
+  // Populate reviews in the feedback section
+  async function loadFeedbackSection() {
+    const grid = document.getElementById("reviewsGrid");
+    if (!grid) return;
+
+    // Featured curated testimonials from HomeQuest clients
+    const curated = [
+      {
+        userName: "Dr. Asela Jayawardena",
+        rating: 5,
+        comment: "Secured a 15-perch land in Kadawatha with clean title deeds. The legal team handled documentation seamlessly. HomeQuest set a new benchmark for trust.",
+        tag: "Land Buyer · Kadawatha",
+        verified: true
+      },
+      {
+        userName: "Kavinda & Dilani Perera",
+        rating: 5,
+        comment: "Moving into our 4-room house in Colombo 03 was our lifelong dream. The architectural layout, modern glass fixtures, and neighborhood security exceeded all expectations.",
+        tag: "Homeowners · Colombo 03",
+        verified: true
+      },
+      {
+        userName: "Nimali Silva",
+        rating: 5,
+        comment: "Renting our luxury apartment in Kandy was effortless through HomeQuest. Highly transparent communication with the owner and verified facilities.",
+        tag: "Tenant · Kandy Residencies",
+        verified: true
+      }
+    ];
+
+    try {
+      const res = await fetch(API + "/api/reviews");
+      if (res.ok) {
+        const backendReviews = await res.json();
+        backendReviews.forEach(r => {
+          if (r.comment && r.comment.trim().length > 5) {
+            curated.unshift({
+              userName: r.userName || "Verified Client",
+              rating: r.rating || 5,
+              comment: r.comment,
+              tag: `Property Ref: ${r.propertyId || 'Verified'}`,
+              verified: true
+            });
+          }
+        });
+      }
+    } catch (e) {
+      // Curated testimonials remain active
+    }
+
+    grid.innerHTML = curated.slice(0, 6).map(item => `
+      <div class="review-card">
+        <div class="review-rating">${"★".repeat(item.rating)}${"☆".repeat(5 - item.rating)}</div>
+        <p class="review-comment">"${esc(item.comment)}"</p>
+        <div class="review-author-wrap">
+          <div class="review-avatar">${esc(item.userName.charAt(0).toUpperCase())}</div>
+          <div class="review-meta">
+            <h4>${esc(item.userName)}</h4>
+            <span>${esc(item.tag)} · <b style="color:var(--gold)">✓ Verified</b></span>
+          </div>
+        </div>
+      </div>
+    `).join("");
+  }
+
+  loadFeedbackSection();
+
+  // Review Modal Handling
+  function openReviewModal() {
+    document.getElementById("reviewModal").classList.add("open");
+  }
+  function closeReviewModal() {
+    document.getElementById("reviewModal").classList.remove("open");
+  }
+
+  // Star selector logic
+  document.querySelectorAll("#starSelector .star").forEach(star => {
+    star.addEventListener("click", () => {
+      const val = Number(star.dataset.value);
+      document.getElementById("revRating").value = val;
+      document.querySelectorAll("#starSelector .star").forEach(s => {
+        s.classList.toggle("selected", Number(s.dataset.value) <= val);
+      });
+    });
+  });
+
+  function populatePropertySelect(list) {
+    const sel = document.getElementById("revProperty");
+    if (!sel) return;
+    if (!list || !list.length) {
+      sel.innerHTML = '<option value="">No properties available</option>';
+      return;
+    }
+    sel.innerHTML = list.map(p => 
+      `<option value="${p.id}">${p.id} - ${esc(p.description)} (${esc(p.address?.location || '')})</option>`
+    ).join("");
+  }
+
+  async function submitFeedback() {
+    const user = getUser();
+    const propId = document.getElementById("revProperty").value;
+    const rating = Number(document.getElementById("revRating").value);
+    const comment = document.getElementById("revComment").value.trim();
+    const msg = document.getElementById("revMsg");
+
+    if (!comment) {
+      msg.className = "msg err";
+      msg.textContent = "Please enter your review comment.";
+      return;
+    }
+
+    try {
+      const payload = {
+        propertyId: propId,
+        userId: user ? user.id : "U_GUEST",
+        userName: user ? user.name : "Valued Client",
+        rating: rating,
+        comment: comment
+      };
+
+      const res = await fetch(API + "/api/reviews", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+
+      if (res.ok) {
+        msg.className = "msg ok";
+        msg.textContent = "Thank you! Your feedback has been published.";
+        document.getElementById("revComment").value = "";
+        setTimeout(() => {
+          closeReviewModal();
+          msg.className = "msg";
+          loadFeedbackSection();
+        }, 1500);
+      } else {
+        const text = await res.text();
+        msg.className = "msg err";
+        msg.textContent = text || "Failed to submit review.";
+      }
+    } catch (err) {
+      msg.className = "msg err";
+      msg.textContent = "Could not connect to backend server.";
+    }
+  }
+</script>
+
+<!-- ====================================================
+     CINEMATIC ANIMATION ENGINE
+     ==================================================== -->
+<!-- ====================================================
+     CINEMATIC ANIMATION ENGINE & HERO SCROLLOUT
+     ==================================================== -->
+<script>
+  /* Global helper to reveal section cards with stagger */
+  function triggerSectionCards(sectionEl) {
+    if (!sectionEl) return;
+    sectionEl.classList.add('in-view');
+    sectionEl.classList.add('visible');
+    const cards = sectionEl.querySelectorAll('.scroll-in-card:not(.card-revealed)');
+    cards.forEach((card, idx) => {
+      setTimeout(() => {
+        card.classList.add('card-revealed');
+      }, idx * 75);
+    });
+  }
+
+  /* ---- 1. Hero Text Scrollout Parallax Animation ---- */
+  (function() {
+    const heroTitle = document.getElementById('heroTitle');
+    const heroSection = document.querySelector('.agency-video-banner');
+    if (!heroTitle || !heroSection) return;
+
+    let ticking = false;
+    function updateHeroScrollout() {
+      const scrollY = window.pageYOffset || document.documentElement.scrollTop;
+      const heroHeight = heroSection.offsetHeight || 600;
+
+      if (scrollY <= heroHeight) {
+        // ratio 0 at top, 1 at hero bottom
+        const ratio = Math.min(1, Math.max(0, scrollY / (heroHeight * 0.75)));
+        // Smoothly fade out, translate up, subtle scale down, and blur
+        const opacity = Math.max(0, 1 - ratio * 1.35);
+        const translateY = -ratio * 95;
+        const scale = Math.max(0.85, 1 - ratio * 0.15);
+        const blur = ratio * 10;
+
+        heroTitle.style.opacity = opacity;
+        heroTitle.style.transform = `translate3d(0, ${translateY}px, 0) scale(${scale})`;
+        heroTitle.style.filter = `blur(${blur}px)`;
+      } else {
+        heroTitle.style.opacity = '0';
+        heroTitle.style.pointerEvents = 'none';
+      }
+      ticking = false;
+    }
+
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        requestAnimationFrame(updateHeroScrollout);
+        ticking = true;
+      }
+    }, { passive: true });
+
+    updateHeroScrollout();
+  })();
+
+  /* ---- 2. Scroll-In Observer for Sections & Carousel Cards ---- */
+  (function() {
+    const targets = document.querySelectorAll('#new-arrivals-section, #trending-section, #listings-section, .scroll-in-section, .reveal');
+    const scrollInObs = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          triggerSectionCards(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    targets.forEach(el => scrollInObs.observe(el));
+  })();
+
+  /* ---- 3. Staggered Card Entrance on Grid Update ---- */
+  (function() {
+    const listEl = document.getElementById('list');
+    if (!listEl) return;
+
+    const cardObs = new MutationObserver(() => {
+      listEl.querySelectorAll('.card:not(.card-enter)').forEach((card, i) => {
+        card.classList.add('card-enter');
+        card.style.animationDelay = `${i * 0.06}s`;
+      });
+    });
+    cardObs.observe(listEl, { childList: true });
+  })();
+
+  /* ---- 4. New Arrivals: populate from backend data with High-Res Preview Images ---- */
+  function populateNewArrivals(list) {
+    const scroll = document.getElementById('arrivalsScroll');
+    const sec = document.getElementById('new-arrivals-section');
+    if (!scroll) return;
+
+    if (!list || !list.length) {
+      scroll.innerHTML = `
+        <div style="display:flex;align-items:center;justify-content:center;gap:14px;padding:36px 20px;width:100%;color:var(--text-muted);font-size:14px;background:rgba(255,255,255,0.02);border:1px dashed rgba(212,175,55,0.25);border-radius:12px;text-align:center">
+          <span>✨ No listings published yet.</span>
+          <button class="btn" style="padding:6px 16px;font-size:12px" onclick="createListing()">Add First Listing</button>
+        </div>`;
+      return;
+    }
+
+    const data = list.slice(-10).reverse();
+
+    scroll.innerHTML = data.map(p => {
+      const typeLabel = p.type === 'house' ? 'House' : p.type === 'apartment' ? 'Apartment' : 'Land';
+      const images = getPropertyImages(p);
+      const primaryImg = images.length > 0 ? images[0] : '';
+      const fallbackPhoto = p.type === 'house'
+        ? 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=800'
+        : p.type === 'apartment'
+          ? 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?q=80&w=800'
+          : 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=800';
+
+      const baseUrl = (typeof API !== 'undefined' && API) ? API : '';
+      let coverUrl = fallbackPhoto;
+      if (primaryImg && typeof primaryImg === 'string' && primaryImg.trim()) {
+        const clean = primaryImg.trim();
+        if (clean.startsWith('http://') || clean.startsWith('https://')) {
+          coverUrl = clean;
+        } else {
+          coverUrl = `${baseUrl}/images/${encodeURIComponent(clean)}`;
+        }
+      }
+
+      const multiBadge = images.length > 1
+        ? `<span class="photo-count-badge">📷 ${images.length} Photos</span>`
+        : '';
+      const specs = [
+        p.size ? `${p.size} ${p.sizeUnit || 'sqft'}` : '',
+        p.rooms ? `${p.rooms} Beds` : '',
+        p.floor ? `Fl. ${p.floor}` : ''
+      ].filter(Boolean).join(' · ');
+
+      return `
+        <a class="arrival-card scroll-in-card" href="details.html?id=${p.id}" onclick="recordPropertyOpen('${p.id}')">
+          <div class="photo-wrap" style="height:210px;width:100%;position:relative;overflow:hidden;border-radius:18px 18px 0 0;background:#0d140f">
+            <img src="${coverUrl}"
+                 alt="${esc(p.description || typeLabel)}"
+                 class="card-preview-image"
+                 style="width:100%;height:210px;min-height:210px;max-height:210px;object-fit:cover;display:block;border-radius:18px 18px 0 0;"
+                 onerror="this.onerror=null;this.src='${fallbackPhoto}';">
+            <span class="arrival-new-tag">NEW</span>
+            <span class="arrival-type-tag">${typeLabel}</span>
+            ${multiBadge}
+          </div>
+          <div class="arrival-card-body">
+            <div class="arrival-price">${money(p.price)}</div>
+            <div class="arrival-desc">${esc(p.description)}</div>
+            <div class="arrival-location">📍 ${esc(p.address?.location || 'Sri Lanka')}${specs ? ` · <span style="color:var(--gold-light);font-size:12px;font-weight:600">${esc(specs)}</span>` : ''}</div>
+          </div>
+        </a>`;
+    }).join('');
+
+    // If section is already visible, reveal cards immediately
+    if (sec && sec.getBoundingClientRect().top < window.innerHeight) {
+      triggerSectionCards(sec);
+    }
+  }
+
+  /* ---- New Arrivals: horizontal scroll arrows ---- */
+  function scrollArrivals(dir) {
+    const scroll = document.getElementById('arrivalsScroll');
+    if (scroll) scroll.scrollBy({ left: dir * 360, behavior: 'smooth' });
+  }
+
+  /* ---- 5. Trending Properties: sorted by open/view count with High-Res Previews ---- */
+  function populateTrending(list) {
+    const scroll = document.getElementById('trendingScroll');
+    const sec = document.getElementById('trending-section');
+    if (!scroll) return;
+
+    if (!list || !list.length) {
+      scroll.innerHTML = `
+        <div style="display:flex;align-items:center;justify-content:center;gap:14px;padding:36px 20px;width:100%;color:var(--text-muted);font-size:14px;background:rgba(255,255,255,0.02);border:1px dashed rgba(212,175,55,0.25);border-radius:12px;text-align:center">
+          <span>🔥 High-demand properties will appear here as client inquiries increase.</span>
+        </div>`;
+      return;
+    }
+
+    const data = [...list];
+
+    // Sort descending by calculated open count
+    data.sort((a, b) => getViewsCount(b.id) - getViewsCount(a.id));
+
+    scroll.innerHTML = data.map(p => {
+      const typeLabel = p.type === 'house' ? 'House' : p.type === 'apartment' ? 'Apartment' : 'Land';
+      const images = getPropertyImages(p);
+      const primaryImg = images.length > 0 ? images[0] : '';
+      const fallbackPhoto = p.type === 'house'
+        ? 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=800'
+        : p.type === 'apartment'
+          ? 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?q=80&w=800'
+          : 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=800';
+
+      const baseUrl = (typeof API !== 'undefined' && API) ? API : '';
+      let coverUrl = fallbackPhoto;
+      if (primaryImg && typeof primaryImg === 'string' && primaryImg.trim()) {
+        const clean = primaryImg.trim();
+        if (clean.startsWith('http://') || clean.startsWith('https://')) {
+          coverUrl = clean;
+        } else {
+          coverUrl = `${baseUrl}/images/${encodeURIComponent(clean)}`;
+        }
+      }
+
+      const views = getViewsCount(p.id);
+      const multiBadge = images.length > 1
+        ? `<span class="photo-count-badge">📷 ${images.length} Photos</span>`
+        : '';
+      const specs = [
+        p.size ? `${p.size} ${p.sizeUnit || 'sqft'}` : '',
+        p.rooms ? `${p.rooms} Beds` : '',
+        p.floor ? `Fl. ${p.floor}` : ''
+      ].filter(Boolean).join(' · ');
+
+      return `
+        <a class="trending-card scroll-in-card" href="details.html?id=${p.id}" onclick="recordPropertyOpen('${p.id}')">
+          <div class="photo-wrap" style="height:210px;width:100%;position:relative;overflow:hidden;border-radius:18px 18px 0 0;background:#0d140f">
+            <img src="${coverUrl}"
+                 alt="${esc(p.description || typeLabel)}"
+                 class="card-preview-image"
+                 style="width:100%;height:210px;min-height:210px;max-height:210px;object-fit:cover;display:block;border-radius:18px 18px 0 0;"
+                 onerror="this.onerror=null;this.src='${fallbackPhoto}';">
+            <span class="trending-tag">🔥 ${views} Views</span>
+            <span class="arrival-type-tag">${typeLabel}</span>
+            ${multiBadge}
+          </div>
+          <div class="arrival-card-body">
+            <div class="arrival-price">${money(p.price)}</div>
+            <div class="arrival-desc">${esc(p.description)}</div>
+            <div class="arrival-location">📍 ${esc(p.address?.location || 'Sri Lanka')}${specs ? ` · <span style="color:var(--gold-light);font-size:12px;font-weight:600">${esc(specs)}</span>` : ''}</div>
+          </div>
+        </a>`;
+    }).join('');
+
+    // If section is already visible, reveal cards immediately
+    if (sec && sec.getBoundingClientRect().top < window.innerHeight) {
+      triggerSectionCards(sec);
+    }
+  }
+
+  /* ---- Trending: horizontal scroll arrows ---- */
+  function scrollTrending(dir) {
+    const scroll = document.getElementById('trendingScroll');
+    if (scroll) scroll.scrollBy({ left: dir * 360, behavior: 'smooth' });
+  }
+
+  /* ---- Trending: horizontal scroll arrows ---- */
+  function scrollTrending(dir) {
+    const scroll = document.getElementById('trendingScroll');
+    if (scroll) scroll.scrollBy({ left: dir * 360, behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>
+
